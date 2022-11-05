@@ -1,0 +1,306 @@
+
+虽然VNC 还有着在Linux下无法按热键呼出中文输入等等小小不足，但仍然无法阻止其在Linux系统中的地位。让我们看下它的魅力吧，首先，复制粘贴做的很随意。本机复制了，直接在远程机器里按粘贴即可。很方便的。
+
+网络遥控技术是指由一部计算机（主控端）去控制另一部计算机（被控端），而且当主控端在控制端时，就如同用户亲自坐在被控端前操作一样，可以执行被控端的应用程序，及使用被控端的系统资源。
+
+VNC（Virtual Network Computing）是一套由AT&T实验室所开发的可操控远程的计算机的软件，其采用了GPL授权条款，任何人都可免费取得该软件。VNC软件主要由两个部分组成：VNC server及VNC viewer。用户需先将VNC server安装在被控端的计算机上后，才能在主控端执行VNC viewer控制被控端。
+
+（在windows中也由一套著名的网络遥控软件――Symantec公司推出的pcAnywhere。
+
+VNC server与VNC viewer支持多种操作系统，如Unix系列（Unix，Linux，Solaris等），windows及MacOS，因此可将VNC server 及VNC viewer分别安装在不同的操作系统中进行控制。如果目前操作的主控端计算机没有安装VNC viewer，也可以通过一般的网页浏览器来控制被控端。
+
+整个VNC运行的工作流程如下：
+
+（1） VNC客户端通过浏览器或VNC Viewer连接至VNC Server。
+
+（2） VNC Server传送一对话窗口至客户端，要求输入连接密码，以及存取的VNC Server显示装置。
+
+（3） 在客户端输入联机密码后，VNC Server验证客户端是否具有存取权限。
+
+（4） 若是客户端通过VNC Server的验证，客户端即要求VNC Server显示桌面环境。
+
+（5） VNC Server通过X Protocol 要求X Server将画面显示控制权交由VNC Server负责。
+
+（6） VNC Server将来由 X Server的桌面环境利用VNC通信协议送至客户端，并且允许客户端控制VNC Server的桌面环境及输入装置。
+
+VNC的安装与使用
+
+本人的操作环境：被控端 Redhat9.0，主控端Windows XP。
+
+1．下载VNC Server与VNC viewer.
+
+VNC Server下载地址：http://www.Linuxeden.com/download/softdetail.php?softid=744
+
+VNC viewer下载地址：http://download.pchome.net/php/dl.php?sid=2603
+
+2．安装.
+
+rpm –Uvh VNC-3.3.6-2.i386.rpm (如果是源代码请看包里的说明)
+
+当下载了VNC的Linux版本后，可以解压文件到一个文件夹中，例如/home/VNC，然后复制文件VNCserver、VNCpasswd和XVNC到/usr/bin目录中。假如想要能够通过VNC服务器的整合Java界面远程控制Linux电脑，也得需去建立一个子目录/usr/local/VNC/classes。在建立此子目录之后，复制VNCJava.class文件到此目录中。（一般redhat 9.0自带以上文件，所以直接用终端执行就可以）。
+
+在Fedora 8上直接YUM下，巨方便。我从来不看怎么安装，这步骤的。
+
+3.在Linux上启动VNC Server
+
+执行VNCserver命令：
+
+[root@Linux root]# VNCserver
+
+You will require a password to access your desktops.
+
+Password: ----为了不想任何人都可以任意遥控此计算机。因此当第1次启动VNC server时，会要求设置网络遥控的密码。这个就是你的登陆VNC的密码一定要够安全。好像哪里的文章上讲可以配置用户的。不过80%的人群不会习惯区分用户的。因为VNC可以虚拟N个桌面的。霍霍，配合Linux的用户很好很强大。
+
+Creating default startup script /root/.VNC/xstartup
+
+Starting applications specified in /root/.VNC/xstartup
+
+Log file is /root/.VNC/Linux:1.log
+
+（经上述步骤后，便已启动了VNC Server。如果你想要更改VNC Server的密码，只要执行VNCpasswd命令即可。）
+4．在Microsoft Windows上运行VNC Viewer
+
+直接运行“VNCviewer.exe”,系统会出现”Connection details”对话框。
+
+在“Connection details”对话框中的“VNC server”文本框中输入VNC Server的IP地址（或主机名及显示装置编号，（请看3。在Linux上启动VNC server的这一行，New ‘X’ desktop is Linux:1 得到此信息），例如：192.168.0.1：1（冒号后面的1是执行VNC Server生成的显示装置编号），单击“OK”按钮后，VNC Server即会开始检查所输入的信息，若是信息错误，系统会出现“Failed to connect to server”的错误信息：若是信息正确，则会接着出现“VNC Authentication”对话框。
+
+若是在“VNC Authentication”对话框中输入的密码正确，就可以成功地打开Linux的桌面窗口。
+
+5. 从浏览器远程遥控。
+
+启动VNC Server 后直接打开浏览器，在地址栏中输入被控端的网址或IP地址，并在网址后加上“：5800＋显示编号”的端口号即可操控该计算机。
+
+例如：http://192.168.0.1:5801 (如果显示编号为1，一般第一次设置的显示编号都是1，就用5800＋1＝5801。)
+
+如果看到窗口，就说明你成功，在密码框输入密码，就能远程控制了。
+
+没事谁用浏览器啊。。。。。无聊的一步
+
+6．设置VNCserver启动变量：
+
+为了使VNCserver在每次启动时保持不变的端口号（5901）
+
+在/etc/rc.d/rc.local文件中添加命令：
+
+rm -f /tmp/.X11-unix/X*
+
+rm -f /.VNC/*.pid
+
+rm -f /.VNC/*.log
+
+这样，每次启机，系统会先把上次非正常关机时留下的临时文件删除。
+
+8、结束VNC服务及远程桌面
+
+VNCserver -kill :1
+
+其它更详细的使用请用man查看。
+
+VNC内定的窗口管理器是twm与大家使用的可能不同，通过修改VNC的配置文件可以更换为自己喜欢的，方法如下：
+
+修改用户目录下的 .VNC/xstartup 文件
+
+#!/bin/sh
+
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+
+xsetroot -solid grey
+
+VNCconfig -iconic &
+
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+
+twm &
+
+将#!/bin/sh后面的内容全部注释掉，改成
+
+~/.Xclients
+
+保存文件
+
+现在可以测试修改是否成功，先kill VNCserver服务
+
+VNCserver -kill :
+
+或
+
+pa aux|grep XVNC
+
+kill PID
+
+重新启动VNCserver ，用VNCviewer连接远程桌面是不是已经变成自己喜欢的类型了。
+
+在前面有VNC server 设置的文章里, 我们已经可以在一个Linux的服务器上运行VNCserver来进行远程访问了,但需要注意的是：
+
+如果直接使用VNCviewer来进行访问，有两点不利因素:
+
+1. 口令传输是明文,很容易被侦听到.
+
+2. 防火墙需要打开59xx端口,这在通常的单位里是不可能的.
+
+幸运的是,我们有ssh这个强大的工具,象X11 Forwarding(另文论述),我们可以使用ssh隧道来保护通讯过程,下面就进行简单介绍.
+
+假设VNCserver运行在服务器 myserver (ip地址为:192.168.x.x)的屏幕1,也就是侦听 192.168.x.x:5901, 用户名为foo
+
+情形一: VNC客户端为Linux
+
+这种情形很简单,一般的Linux发行版本里面都默认安装了ssh套件.
+
+1. 用ssh登录到服务器
+
+ssh -L 5901:localhost:5901 -l foo myserver
+
+或者直接用ip地址
+
+ssh -L 5901:localhost:5901 -l foo 192.168.x.x
+
+2. 在本机的另外开的终端上,运行VNCviewer (或其它的类似工具)
+
+VNCviewer localhost:1
+
+情形二: VNC客户端为windows
+
+1. 下载一个ssh客户端,个人推荐putty,只有一个程序,不需要安装,简单而功能齐全. 到这里下载http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
+下载putty.exe到桌面上直接运行即可。
+
+2. 运行putty,输入服务器的ip地址,输入一个名字,这里myserver作为session的名字，按save保存。见附图一
+
+3. 单击对话框左边的tunnels来选择相关设置，在source port里输入5901，在Destination里输入localhost：5901，按Add添加，如附图二
+
+4. 单击左边session，回到session设置，按save重新保存。按open即可登录到服务器。
+
+5. 运行VNC-viewer （如果没有，到这里下载http://www.realVNC.com/download.html，只要一个 exe的文件就行），在Server里输入localhost:1,见附图三, 输入口令后一个Linux的桌面就会出现在windows里，并且是非常安全的，Cool 能玩到这步骤的都是我崇拜的对象。哈
+51CTO编者注，VNC 常见问题解答集锦
+
+Q、VNC 是什么?
+
+VNC有两种定义：一种是软件、一种是协议
+
+VNC是 Virtual Network Computing
+
+软件是指是GNU public license下的符合VNC协议的共享软件,.最开始是AT&T的英国实验室 [现在这帮人成立了RealVNC公司] 开发的. 主要是让计算机可以远程控制另外一台计算机。现在很多公司在VNC的基础上开发出了各种各样的VNC. 能够运行在各个操作系统上。
+
+VNC协议。是指控制方和被控制计算机之间的通讯协议。VNC用的协议叫RFB .[很多人不知道吧] RFB 的协议在这里。 http://realVNC.com/docs/rfbproto.pdf
+
+Q、VNC 的优点?
+
+第一、VNC的最大优点就是跨平台。因为不同的操作系统的界面处理方法都不一样，所以就有人开发了不同的VNC版本，因为都符合VNC协议，所以兼容性比较好。还有人做了Java版的客户端，在能够运行JVM的机器上都能运行客户端。
+
+[ 当然微软/Uinx/Linux等也有自己的解决方案，如Terminal/PcAnywhere/Xceed等等。但是他们不开放代码...]
+
+第二、版本多，开放源代码，每个人都可以不断改进它。
+
+[这是开放的好处]
+
+第三、速度。速度还是挺快的，如果你的网络带宽好的话。
+
+Q. VNC PK MS 终端
+
+VNC : 不用Windows的账户/密码。这样对于一次性的用户很方便。否则每次要在Windows里面加用户可是很不安全的阿。
+
+Windows: 对于Windows Server, 可以多用户登录使用。VNC只能两个人（控制和被控制的计算机）使用。
+
+VNC: 可以让控制和被控制的屏幕同时显示、操作。这样可以做Demo，共享交流等。Windows 没这个功能吧！
+
+Q. 如何以图形界面登录被控端？
+
+编辑~/.VNC/xstartup
+
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+
+# unset SESSION_MANAGER
+
+# exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/VNC/xstartup ] && exec /etc/VNC/xstartup
+
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+
+xsetroot -solid grey
+
+VNCconfig -iconic &
+
+#xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+
+gnome-session & 建议选这个。。。其他的都给它前面加上#
+
+startkde &
+
+twm &
+
+gnome-session是启动Gnome图形界面；startkde是启动KDE图形界面；twm是启动文本界面。三者选其一。
+
+Q. 如何开机时自动启动VNC服务
+
+打开“系统设置”-->"服务器设置"-->"服务"，勾选上VNCserver，“保存”。
+
+修改 /etc/sysconfig/VNCservers
+
+VNCSERVERS="1:root 2:phred 3:sysadmin" 1代表“桌面1”，root代表用户名；可同时启动多个用户桌面
+
+VNCSERVERARGS[1]="-geometry 800x600 -alwaysshared -depth 24"
+
+-alwaysshared代表允许多用户同时登录 -depth代为色深，参数有8,16,24,32。
+
+这步有点高深了。。。也复杂点，其实客户端可以完成80%的配置。而我有更好的方法，因为SSH启动是默认的。SSH上去打开VNC就行了。也不过一条命令。更多的是安全。
+
+Q．为什么连接后，不能显示桌面，而只有一个Terminal窗口？
+
+试着修改/root/.VNC/xstartup,把最后一行 twm& 改成 gnome-session& or kde&(据说KDE在目前的VNC Viewer上的表现不太稳定)
+
+Q．为什么重新启动VNC Server后，连接不上了？
+
+因为重新启动VNC Server时，系统会指定一个新的显示编号，需使用此新的编号，否则就无法连接.
+
+查看VNC已启用的桌面号及监听进程
+
+[root@Linux /]# netstat -tlnp |grep VNC
+
+VNCserver 命令带有一些很有用的参数，用VNCserver --help 查看。
+
+简单解释一下：
+
+VNCserver [:] [-name ] [-geometry x] [-depth ]
+
+[-pixelformat format]
+
+VNCserver -kill :display
+
+:
+
+VNC服务的display号，可以自行指定，尽量不要使用系统默认的以保证安全，必须为非0的正整数
+
+VNCserver :99
+
+使用时必须输入正确的display号才能连接；用浏览器要在端口号加上display号，默认端口5800，远程连接输入 XXX.XXX.XXX.XXX:5899
+
+-name 指定VNCserver桌面名字
+
+比如要让名字显示为 “红帽”
+
+VNCserver -name 红帽
+
+-geometry x指定显示桌面的分辨率，默认为1024x768
+
+VNCserver -geometry 800x600
+
+这个命令实际中很有用，例如本地分辨率为1024x768 如果不设定远程VNC服务分辨率就会造成桌面显示不全的问题。
+
+-depth 指定显示颜色,设定范围8～32
+
+VNCserver -depth 16
+
+用16bits颜色显示
+
+-pixelformat 指定色素格式与-depth大致相同，只是表示方法不一样
+
+VNCserver -pixelformat RGB888
+
+用24bits颜色显示
+
+VNCserver -kill :display
+
+
