@@ -1,0 +1,239 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs20 Restoring a Sun system using JumpStart technology\par
+\par
+Andreas Almroth\par
+\par
+Last revised: September 9, 2002\par
+\par
+If a server crash and the file systems are corrupted or totally destroyed, then the only way to recover the data is to restore from backups. If it is only user data that is corrupted, the task is in general simple, but if the system disk fails, then there is a little bit more work involved in order to to recover the system. This article explains how to backup Sun systems using ufsrestore over NFS, and how to use Sun's JumpStart technology to restore Sun servers and workstations over the network.\par
+Introduction\par
+\par
+When a server crashes, either due to hardware failure, or because of software related problems, and the file systems are corrupted, the only resort is to restore from working backups.\par
+\par
+I don't think it can be emphasised enough how important it is to have a good working backup of all systems in use , or at least the vital production systems. It is fairly simple to back up systems of today, as there are many tools around to help. One can either use the tools bundled with the operating system, or use 3rd party backup solutions. I usually recommend using both, and the reason is simplicity. Does this sound strange?\par
+\par
+Well, I like to be able to restore the system disks with simple system tools, in order to ge the system up and running as fast as possible. Then, when the system is up, one can continue restoring user data using the enterprise backup solutions, such as VERITAS NetBackup or IBM Tivoli Storage Manager.\par
+\par
+I have found that using Sun's JumpStart technology together with customised installation scripts, enables me to restore a system over the network, as soon as the failing parts have been replaced.\par
+\par
+OK, so most people think JumpStart is used for installing new systems, or to upgrade existing systems, but it can also be used to incorporate new patches, install new software, and in this case; restore an entire system.\par
+\par
+In this article I will show how to back up a system over NFS, and then use JumpStart to restore the backup to the system.\par
+\par
+In order to keep the examples simple, I have not incorporated any security configuration or checks. One should make sure that the NFS resources are only accessible by the systems being backed up. The JumpStart configuration should not be enabled by default, but you need to manually activate the restore. Another approach is to encrypt the backups, but I will cover that in my next article.\par
+Backing up\par
+\par
+I use a central NFS server to store the backups, instead of using a local tape drive. This means you need an NFS server with lots of storage, but on the other hand, you save by not having to buy a tape drive for each system.\par
+\par
+First, create a directory on the NFS server to be shared to the backup clients. Then in this directory, create a directory for each client. Also, create a user for this purpose as well, lets call the user backup and with a user ID of 2000. Also, remember to change the permissions on the directories. Add the directory to the NFS shares by adding the below line to the file /etc/dfs/dfstab;\par
+\par
+share -F nfs -o rw,anon=2000 /export/backups\par
+\par
+Activate the share by either running the shareall command if the NFS server daemons are already running, or start NFS by running\par
+\par
+/etc/init.d/nfs.server start\par
+\par
+Next, we need to configure the backup clients to back up the file systems to the NFS server. This is done by creating a script for this very purpose, and then add it to the clock daemon facility.\par
+\par
+Lets say we would like to back up the root file system, and that we have /var and /opt as separate file systems that should be included.\par
+\par
+You should change the script, shown below, to reflect your local configuration of backup server, directories, hostname, and file systems to be backed up.\par
+\par
+  #!/bin/sh\par
+  #\par
+  # Configurable variables\par
+  BSRV=bkpsrv\par
+  SPARE=/export/spare\par
+  BDIR=/export/backups\par
+  HOST=client1\par
+  DIRS="/ /var /opt"\par
+\par
+  # !!!\par
+  # DO NOT change below this line\par
+  # !!!\par
+\par
+  # check_err\par
+  # Purpose : Check if error, and if so, \par
+  #           log entry to syslog\par
+  # Arguments : none\par
+  #\par
+  check_err()\par
+  \{\par
+      if [ $? != "0" ] ; then\par
+\tab   logger -p user.crit -i BACKUP:ERROR\par
+\tab   exit 1\par
+      fi\par
+  \}\par
+\par
+  mount -F nfs $BSRV:$BDIR $SPARE/backups\par
+  check_err\par
+\par
+  for i in $DIRS;\par
+  do\par
+    if [ $i = '/']; then\par
+        DST="/root"\par
+    else\par
+        DST=$i\par
+    fi\par
+\par
+    SNP=`fssnap -F ufs -o raw,bs=$SPARE$DST.snp $i`\par
+    check_err\par
+\par
+    ufsdump 0uf - $SNP|gzip|dd of=$BDIR/backups/$HOST$DST.dump.gz\par
+    check_err\par
+\par
+    fssnap -d $i\par
+    check_err\par
+\par
+    rm $SPARE$DST.snp\par
+    check_err\par
+  done\par
+\par
+  umount $BDIR\par
+  check_err\par
+\par
+  logger -p user.info BACKUP_COMPLETED\par
+\par
+The script is very simple in its design, and it is only the top part that should be altered to reflect local settings. All actions in the script are checked for errors, and if an error occurs, the script logs a message to the system and then aborts.\par
+\par
+First, the script mounts the NFS server backup directory, and then loops through the file systems specified in the DIR variable.\par
+\par
+As we are in multi-user mode, we create a snapshot of each file system before starting ufsdump. In order to save space on the NFS server, the dump is piped through gzip, which compresses the data, before sending it on to dd which copies the blocks to the destination file on the NFS server. When the backup is safely stored, we remove the snapshot of the file system, and the backing store file. The loop starts all over again with the next file system if available. Finally, the script will umount the NFS server directory, and logs a message to the system.\par
+\par
+Add the script to the clock daemon by running crontab -e. Remember to set the EDITOR variable to something useful, such as vi, unless you prefer ed. Add following the line in root's crontab file;\par
+\par
+  0 4 * * * /opt/scripts/backup.sh\par
+\par
+This will run the backup script, called /opt/scripts/backup.sh every day at 4AM. All output is logged to root's mail file. If you prefer to redirect output to another file or /dev/null, just add it at the end of the line.\par
+\par
+The above script creates a full backup of each file system, but if the file systems are large, it might be better to do a full backup in the weekend, and then use incremental backups through the week. Both the backup script, as well as the JumpStart post-install script must be changed to manage both full backups and incremental backups. I leave the implementation as an exercise for the reader.\par
+Configure the JumpStart server\par
+\par
+Taken that we already have a working JumpStart server, we only need to add or alter the configuration for the backup client. See [2] for further details on how to set up a JumpStart server. The configuration used below is taken from my article [1], which covers how to install a Sun server or desktop from a laptop.\par
+\par
+When restoring a system using Jumpstart, we only use it to boot the client, skipping pre-install scripts and installation of packages.\par
+\par
+This is done by not specifying a profile for the client, and using a custom post-install script. We still need a configuration file for the client, in order to have a hands-free recovery.\par
+\par
+If the backup client doesn't have a configuration file already, we need to create one. Create a directory for the client where the other JumpStart clients store their configuration files, and share it over NFS by altering the /etc/dfs/dfstab file. Remember to run the shareall command after changing the file.\par
+\par
+The configuration file must be named sysidcfg, and for Solaris 8 the following lines should be added;\par
+\par
+  system_locale=en_US\par
+  timezone="GMT+1"\par
+  timeserver=localhost\par
+  network_interface=primary \{hostname=client\par
+                         ip_address=10.0.0.20\par
+                         netmask=255.255.255.0\par
+                         protocol_ipv6=no\}\par
+  terminal=sun\par
+  name_service=NONE\par
+  security_policy=NONE\par
+\par
+Also, verify that the JumpStart server has entries in its /etc/hosts, and /etc/ethers. If not, you need to add entries in the files, specifying IP address, hostname and ethernet address.\par
+\par
+Next, we add an entry to the rules file. This entry should not contain a profile, and thus should look something like;\par
+\par
+  hostname client1    -     -     post_backup\par
+\par
+Then activate the new configuration by running; cd /jumpstart/config\par
+./check\par
+\par
+We also need to update /etc/bootparams if the server is not already a JumpStart client. Easiest is to run the add_install_client to create a new entry, or to update the existing. Execute the following;\par
+\par
+cd /jumpstart/sparc/sunos58_0202/Solaris_8/Tools\par
+./add_install_client -c 10.0.0.1:/jumpstart/config \\\par
+-p 10.0.0.1:/jumpstart/client1\par
+-n 10.0.0.1:none[255.255.255.0] client1 i86pc\par
+\par
+On a Sparc machine replace i86pc by sun4u.\par
+\par
+This will enable the JumpStart client to boot by downloading the bootloader and kernel from the JumpStart server.\par
+\par
+As we are not using a profile at all, we have to rely on a post-install script. This script will have to format the hard disk, and create the file systems, before restoring the files. The backup dump files are read from the NFS server, where the backup script previously stored them.\par
+\par
+In order to format the system disk we need to read the configuration from the running system, or in the case where the new spare disk is of a completely different model, we have to manually create the disk layout.\par
+\par
+The disk layout can be read by using the prtvtoc command. The output is a rather extensive report of the disk, but it is only the last part of the output that is interesting. The lines that list the partitions, with sizes, start and stop sectors, and mount point. When formatting a new replacement drive, we only need the first five columns in the format;\par
+\par
+  partition     tag    flag   start     size\par
+\par
+Where partition is the slice number on the disk, tag identifies the type of partition, flag indicates whether it is a mountable partition or not, start is the start sector on the disk, and size is the size of the partition in number of sectors.\par
+\par
+In the script below we use the output from prtvtoc, then edit it a bit, and use it as input to the fmthard command.\par
+\par
+Next, we format the partitions with newfs.\par
+\par
+  #!/bin/sh\par
+\par
+  fmthard -s - /dev/rdsk/c0t0d0s2 <<EOF\par
+  *                          First    Sector\par
+  * Partition  Tag  Flags   Sector     Count\par
+         0      2    00          0   6963264\par
+         1      3    01    6963264   1049328\par
+         2      5    00          0  36092448\par
+         3      7    00    8012592   4096512\par
+         4      0    00   12109104   4096512\par
+  EOF\par
+\par
+  newfs /dev/rdsk/c0t0d0s0 < /dev/null\par
+  newfs /dev/rdsk/c0t0d0s3 < /dev/null\par
+  newfs /dev/rdsk/c0t0d0s4 < /dev/null\par
+\par
+  mount /dev/dsk/c0t0d0s0 /a\par
+  mkdir /a/var\par
+  mkdir /a/opt\par
+  mount /dev/dsk/c0t0d0s3 /a/var\par
+  mount /dev/dsk/c0t0d0s4 /a/opt\par
+\par
+  mkdir /tmp/mnt\par
+  mount -F nfs 10.0.0.1:/jumpstart/apps /tmp/mnt\par
+\par
+  cd /tmp/mnt\par
+\par
+  dd if=root.dump.gz | gzcat - | (cd /a; ufsrestore rf - )\par
+  dd if=var.dump.gz | gzcat - | (cd /a/var; ufsrestore rf - )\par
+  dd if=opt.dump.gz | gzcat - | (cd /a/opt; ufsrestore rf - )\par
+\par
+  cd /\par
+  umount /tmp/mnt\par
+\par
+  installboot /usr/platform/i86pc/lib/fs/ufs/bootblk /dev/rdsk/c0t0d0s0\par
+\par
+Then it is time to mount the file systems in the /a directory, which exist in the boot file system during JumpStart. As the file systems are new, we also need to create the subdirectories for the file systems mounted below root /.\par
+\par
+Next, a temporary directory is created to which we mount the NFS server's shared directory where we have the backups. We can now start restoring the backups by reading the dump files, pipe through gzcat for decompression, and then send it on to ufsrestore.\par
+\par
+As the last step in the recovery, we install the boot blocks on the new system disk. Change platform to whatever is appropriate for the Sun system being recovered, or else it won't boot.\par
+\par
+As this script is using gzcat, we need to copy this file to the JumpStart boot directory in /jumpstart/sunos58_0202/Solaris8/Boot/usr/bin. If you already have SUNWgzip package installed on the JumpStart server, copy /usr/bin/gzcat to the above directory. If not installed, you will have to install the SUNWgzip package from the Solaris 8 CD media.\par
+Start the recovery\par
+\par
+Replace or repair whatever is broken on the server, and power up. Most likely the automatic boot will fail if the system disk crashed. Boot the system using boot floppy or bootable CD-ROM. In DCA (Device Configuration Assistant), after hardware is detected, when prompted to select a boot device, select the network card.\par
+\par
+On a Sparc based machine halt the boot sequence by sending a break signal. This is either done by pressing STOP-A, or from the terminal press BREAK key. At the OBP prompt, issue following;\par
+\par
+ok> boot net - install\par
+\par
+This will initiate boot over the network, and will load the kernel. As part of the JumpStart technology, the server will read its configuration from the JumpStart server. As we have not provided any pre-install script or even a profile, the post-install script will be executed directly.\par
+\par
+The server will automatically reboot when the post-installs script is finished with formatting the system disk, and reading back the file systems.\par
+Conclusion\par
+\par
+Using JumpStart technology to recover a system over the network minimises the downtime, and once set up, it is very simple to start the recovery without complicated manuals, and in-depth knowledge for the on-duty personnel.\par
+\par
+Both the backup procedure, as well as the recovery procedure, show the power of the tools that come bundled with Solaris, and how they can be used to provide safe backups and easy recovery.\par
+References\par
+\par
+[1]  Andreas Almroth. Installing Solaris using JumpStart technology on a Intel laptop\} article.\par
+\par
+[2]  John S. Howard, Alex Noordergraf. JumpStart. Technology - Effective Use in the Solaris Operating Environment.\par
+\par
+[3]  Sun Microsystems Inc. Solaris 8 Advanced Installation Guide, Part number 806-0957-10, February 2000.\par
+\par
+[4]  Sun Microsystems Inc. System Administration Guide, Volume 3, Part number 806-0906-10 February 2000.\par
+Author's bio\par
+\par
+Andreas Almroth is a freelance system administrator and programmer, currently with Eterra A/S in Denmark. He can be contacted at andreas@almroth.com. \par
+}
+ 
