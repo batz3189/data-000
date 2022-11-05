@@ -1,0 +1,42 @@
+<html><head><style>
+body, .button, .row, .big, .little, th, comment { font-family:tahoma, verdana, arial, helvetica, sans; font-weight:normal; font-size:9pt; }
+body { margin:0; background-color:#DDDDFF; padding:10px; }
+p { margin:0 }
+.big { font-size:14pt; font-weight:bold;  }
+.little { font-size: 8pt; }
+div.body {
+  border-bottom: 4px solid #BBBBFF;
+     border-top: 4px solid #BBBBFF;
+    border-left: 1px dotted #BBBBFF;
+   border-right: 1px dotted #BBBBFF;
+  background:#F3F3FF;
+  padding:15px;
+  margin:15px;
+}
+A { text-decoration:none;  background-color:Transparent; color:#0055FF; }
+A:visited { color:#5555FF; }
+A:hover { background-color:#EEEEFF; }
+img { border-style:none }
+.right { text-align:right }
+.row { font-size:10pt; background:#FFFFFF; border:1px solid #BBBBFF }
+.comment { font-size:7pt; color:#888888; background:#EEEEEE; padding:3px; border:1px solid #DDDDDD; margin-top:2px; }
+.column { color:#555555; font-size:13pt; font-weight:bold; padding-bottom:0; }
+.button { padding:5px; padding-top:7px; border:2px solid black; background:white; font-size:8pt; font-weight:bold; }
+.flag { font-weight:bold; font-size:8pt; background:white; color:red; text-align:center; border:1px solid red; }
+
+
+</style></head><body>
+<h1>Download Limit Reached</h1>
+On this server there is a limit on the number of <b>contemporary</b> downloads.
+<br>This limit has been reached. Try back a little later.<br>
+Thank You for your patience and for stopping by VX CHAOS File Server © !<br>
+
+
+<hr>
+<div style="font-family:tahoma, verdana, arial, helvetica, sans; font-size:8pt;">
+<br>VX CHAOS File Server © 
+<br>7/23/2008 2:04:41 AM
+</div>
+</body>
+</html>
+
