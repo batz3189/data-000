@@ -1,0 +1,248 @@
+/*
+ * Copyright (c) 2000-2008
+ * Author: Weiming Zhou
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.  
+ */
+
+#ifdef _WIN32
+#include <windows.h>
+#endif 
+
+#include "CapiGlobal.h"
+#include "MTask.h"
+#include "BinTree.h"
+#include "RBTree.h"
+#include "MTree.h"
+
+typedef struct MTREE_st {
+    RBTREE      *pRBTree;
+    RBTREENODE  *pCursor;
+    MTASK       *pMTask;
+} MTREE;
+
+
+
+/**	多任务树的创建函数
+
+	@param	void - 无	
+	@return	HANDLE - 成功返回多任务树的句柄，失败返回NULL	
+*/
+HANDLE MTree_Create(void)
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)malloc(sizeof(MTREE));
+    if ( pTree != NULL )
+    {
+        pTree->pMTask = MTask_Create();
+        if ( pTree->pMTask != NULL )
+        {
+            pTree->pRBTree = RBTree_Create();
+            if ( pTree->pRBTree != NULL )
+            {
+                pTree->pCursor = NULL;
+            }
+            else
+            {
+                free( pTree->pMTask);
+                free( pTree );
+                pTree = NULL;
+            }
+        }
+        else
+        {
+            free( pTree );
+            pTree = NULL;
+        }
+    }
+    return (HANDLE)pTree;
+}
+
+
+/**	多任务树的释放函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@param	DESTROYFUNC DestroyFunc - 数据释放回调函数	
+	@return	void - 无	
+*/
+void MTree_Destroy(HANDLE hTree, DESTROYFUNC DestroyFunc)
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+    if ( pTree == NULL )
+    {
+        return;
+    }
+
+    MTask_Destroy(pTree->pMTask);
+
+    RBTree_Destroy( pTree->pRBTree, DestroyFunc );
+
+    free( pTree );
+}
+
+
+/**	多任务树的设置退出标志函数
+
+	@param	HANDLE hTree - 多任务树句柄	
+    @param	UINT uExitFlag - 退出标志，MTASK_NO_EXIT表示不退出任务，
+                    MTASK_EXIT表示退出任务。	
+	@return	void - 无	
+*/
+void MTree_SetExitFlag(HANDLE hTree, UINT uExitFlag )
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+    
+    MTask_SetExitFlag(pTree->pMTask, uExitFlag);
+}
+
+
+/**	多任务树的获取退出标志函数
+
+	@param	HANDLE hTree - 多任务树句柄	
+    @return	UINT - 返回获取到的退出标志，MTASK_NO_EXIT表示不退出任务，
+                    MTASK_EXIT表示退出任务。
+	
+*/
+UINT MTree_GetExitFlag(HANDLE hTree )
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+    
+    return MTask_GetExitFlag(pTree->pMTask);
+}
+
+
+/**	多任务树的进入任务函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@return	void - 无	
+*/
+void MTree_EnterTask(HANDLE hTree )
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+
+    MTask_EnterTask(pTree->pMTask);
+}
+
+
+/**	多任务树的离开任务函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@return	void - 无	
+*/
+void MTree_LeaveTask(HANDLE hTree )
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+
+    MTask_LeaveTask(pTree->pMTask);
+}
+
+
+
+/**	多任务树的数据插入函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@param	void *pData - 要插入的数据指针	
+	@param	COMPAREFUNC CompareFunc - 数据比较函数	
+	@return	INT - 和RBTree_Insert()函数的返回值相同	
+*/
+INT MTree_Insert(HANDLE hTree, void *pData, COMPAREFUNC CompareFunc)
+{
+    MTREE   *pTree;
+    INT     nRet;
+
+    pTree = (MTREE *)hTree;
+    
+    MTask_Lock(pTree->pMTask);
+
+    nRet = RBTree_Insert(pTree->pRBTree, pData, CompareFunc);
+
+    MTask_Unlock(pTree->pMTask);
+
+    return nRet;
+}
+
+
+/**	多任务树的删除数据函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@param	void *pData - 要删除的数据指针	
+	@param	COMPAREFUNC CompareFunc - 数据比较回调函数	
+	@param	DESTROYFUNC DestroyFunc - 数据释放回调函数	
+	@return	INT - 同RBTree_Delete()函数	
+*/
+INT MTree_Delete(HANDLE hTree, void *pData, COMPAREFUNC CompareFunc, 
+                 DESTROYFUNC DestroyFunc)
+{
+    MTREE   *pTree;
+    INT     nRet;
+
+    pTree = (MTREE *)hTree;
+
+    MTask_Lock(pTree->pMTask);
+
+    nRet = RBTree_Delete(pTree->pRBTree, pData, CompareFunc, DestroyFunc);
+
+    MTask_Unlock(pTree->pMTask);
+
+    return nRet;
+}
+
+
+/**	多任务树的枚举开始函数
+
+	@param	HANDLE hTree - 多任务树句柄	
+	@return	void - 无	
+*/
+void MTree_EnumBegin(HANDLE hTree)
+{
+    MTREE   *pTree;
+
+    pTree = (MTREE *)hTree;
+    MTask_Lock(pTree->pMTask);
+
+    RBTree_EnumBegin(pTree->pRBTree);
+
+    MTask_Unlock(pTree->pMTask);
+
+}
+
+
+/**	多任务树的枚举下一个并拷贝节点函数
+
+	@param	HANDLE hTree - 多任务树的句柄	
+	@param	COPYFUNC CopyFunc - 数据拷贝回调函数	
+	@return	void * - 返回拷贝的数据	
+*/
+void * MTree_EnumNextCopy(HANDLE hTree, COPYFUNC CopyFunc)
+{
+    MTREE   *pTree;
+    void    *pData;
+
+    pTree = (MTREE *)hTree;
+
+    MTask_Lock(pTree->pMTask);
+
+    pData = RBTree_EnumNext(pTree->pRBTree);
+
+    pData = (*CopyFunc)(pData);
+
+    MTask_Unlock(pTree->pMTask);
+
+    return pData;
+}
+
