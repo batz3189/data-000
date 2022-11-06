@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Power Forward Initiative Low Power Guide</title>
+<meta name="description" content="Power Forward Initiative Low Power Guide">
+
+<!-- HTML and graphics created by FineLine Graphics and Design
+visit www.finelinegd.com for more information on our services -->
+<style type="text/css">
+body {
+	background: #ffffff;
+	color: #000000;
+	font-family:Arial, Helvetica,sans-serif;
+	font-size:9pt;
+	font-weight:normal;
+	line-height: 1.5;	
+	margin: 0;
+	padding: 0;
+	text-align:left;
+}
+
+a:link, a:visited {
+	color:#000000;
+	text-decoration: none;
+}
+a:hover, a:active	{
+	color:#003399;
+	text-decoration: underline;	
+}
+.subTitle	{
+	font-size:10pt;
+	font-weight:bold;
+}
+
+
+</style>
+
+</head>
+<body>
+<br>
+<table width="800" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+<tr><td colspan="4"><img src="images/toc_hdr.jpg" width="800" height="157" border="0" alt="Table of Contents"></td></tr>
+
+<tr valign="top">
+	<td rowspan="50" style="background: #cccccc; width: 1px;"></td>
+	<td style="padding: 6px 30px 0px 80px;">
+	&nbsp; &nbsp;<br>
+	<span class="subTitle">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Foreword</a></span><br>
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Preface</a></span><br>
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Acknowledgements</a></span><br>
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">References and Bibliography</a></span><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+	&nbsp; &nbsp;<br>
+Sect.1 - 2<br>
+Sect.1 - 3<br>
+Sect.1 - 4<br>
+Sect.1 - 6<br>
+</td>
+<td rowspan="20" style="background: #cccccc; width: 1px;"></td>	
+</tr>
+
+
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Low-Power Links</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power Forward Initiative</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Cadence Low-Power Links</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 9<br>
+Sect.1 - 10<br>
+Sect.1 - 10<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Terminology Glossary</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Design Objects</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Objects</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 12<br>
+Sect.1 - 12<br>
+Sect.1 - 12<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Special Library Cells for Power Management</a></span><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 14<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Introduction to Low Power</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Low Power Today</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power Management</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Complete Low-Power RTL-to-GDSII Flow Using CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">A Holistic Approach to Low-Power Intent</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Verification of Low-Power Intent with CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power Intent Validation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Low-Power Verification</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Verification Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 16<br>
+Sect.1 - 16<br>
+Sect.1 - 18<br>
+Sect.1 - 31<br>
+Sect.1 - 37<br>
+Sect.1 - 40<br>
+Sect.1 - 40<br>
+Sect.1 - 42<br>
+Sect.1 - 57<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Front-End Design with CPF</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Architectural Exploration</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Synthesis Low-Power Optimization</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Automated Power Reduction in Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF-Powered Reduction in Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Simulation for Power Estimation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Synthesis Summary </a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 60<br>
+Sect.1 - 60<br>
+Sect.1 - 62<br>
+Sect.1 - 64<br>
+Sect.1 - 69<br>
+Sect.1 - 79<br>
+Sect.1 - 82<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power-Aware Design for Test (DFT)</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power Domain-Aware DFT</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power-Aware Test </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Test Summary 	</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 84<br>
+Sect.1 - 84<br>
+Sect.1 - 85<br>
+Sect.1 - 88<br>
+</td>	
+</tr>
+
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Low-Power Implementation with CPF</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Introduction to Low-Power Implementation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Gate-Level Optimization in Power-Aware Physical Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Clock Gating in Power-Aware Physical Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Multi-Vth Optimization in Power-Aware Physical Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Multiple Supply Voltage (MSV) in Power-Aware Physical Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Power Shut-Off (PSO) in Power-Aware Physical Synthesis</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Dynamic Voltage/Frequency Scaling (DVFS) Implementation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Substrate Biasing Implementation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">Diffusion Biasing </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect1_06052009.pdf" target="top">CPF Implementation Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.1 - 90<br>
+Sect.1 - 90<br>
+Sect.1 - 93<br>
+Sect.1 - 93<br>
+Sect.1 - 94<br>
+Sect.1 - 95<br>
+Sect.1 - 97<br>
+Sect.1 - 104<br>
+Sect.1 - 105<br>
+Sect.1 - 108<br>
+Sect.1 - 109<br>
+</td>	
+</tr>
+
+
+
+<!-- section 2 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">ARC Energy PRO: Technology for Active Power Management</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">Overview of ARC Energy PRO</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">The Power Struggle</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">Designing Low-Power Solutions</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">Project Subsystem: ARC CPU with Co-Processor</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect2_06052009.pdf" target="top">Conclusion</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.2 - 2<br>
+Sect.2 - 2<br>
+Sect.2 - 2<br>
+Sect.2 - 2<br>
+Sect.2 - 5<br>
+Sect.2 - 8<br>
+</td>	
+</tr>
+
+<!-- section 3 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">NEC Electronics: Integrating Power Awareness in SoC Design with CPF </a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">NEC Electronics and CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">Why Low Power?</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">Comprehensive Approach to Low Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">Example of Mobile Phone System SoC</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">NEC Electronics CPF Proof-Point Project: NEC-PPP</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect3_06052009.pdf" target="top">Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.3 - 2<br>
+Sect.3 - 3<br>
+Sect.3 - 4<br>
+Sect.3 - 6<br>
+Sect.3 - 7<br>
+Sect.3 - 11<br>
+Sect.3 - 18<br>
+</td>	
+</tr>
+
+<!-- section 4 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Fujitsu: CPF in the Low-Power Design Reference Flow</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Fujitsu and CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Low-Power Design Techniques Used by Fujitsu</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Low-Power Test Chip Developed with CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Low-Power Design Flow with CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Review of Low-Power Test Chip Design</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Fujitsu Reference Design Flow 3.0: Low Power with CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Fujitsu's CPF Low-Power RDF Methodology</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect4_06052009.pdf" target="top">Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.4 - 2<br>
+Sect.4 - 4<br>
+Sect.4 - 5<br>
+Sect.4 - 6<br>
+Sect.4 - 7<br>
+Sect.4 - 8<br>
+Sect.4 - 9<br>
+Sect.4 -14<br>
+Sect.4 -14<br>
+</td>	
+</tr>
+
+<!-- section 5 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">NXP User Experience: Complex SoC Implementation with CPF</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">Low Power is Critical to NXP</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">CPF in Action on a Complex SoC Platform</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">Power Network Intent</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">Hierarchical Support for IP and Design Reuse</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">Scalable Implementation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">DFT Impact</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect5_06052009.pdf" target="top">CPF-Based Results</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.5 - 2<br>
+Sect.5 - 4<br>
+Sect.5 - 7<br>
+Sect.5 - 8<br>
+Sect.5 - 12<br>
+Sect.5 - 13<br>
+Sect.5 - 17<br>
+Sect.5 - 18<br>
+</td>	
+</tr>
+
+<!-- section 6 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Freescale: Wireless Low-Power Design and Verification with CPF</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Business Implications of Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Wireless Carriers and Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Phone Power and Energy</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Active Power Challenge and Design Techniques</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Low-Power Design Methodology and CPF</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Mobile Application Power Reduction Results</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect6_06052009.pdf" target="top">Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.6 - 2<br>
+Sect.6 - 2<br>
+Sect.6 - 3<br>
+Sect.6 - 3<br>
+Sect.6 - 10<br>
+Sect.6 - 11<br>
+Sect.6 - 14<br>
+Sect.6 - 15<br>
+</td>	
+</tr>
+
+<!-- section 7 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">TSMC: Advanced Design for Low Power at 65nm and Below</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">TSMC 65nm Low-Power Process</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">Low-Power Design Techniques</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">CPF: The Low-Power Standard</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">The TSMC Proof-Point Project</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">CPF-Based TSMC Reference Flow 9.0.</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">TSMC Low-Power Library: CPF Compliant</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect7_06052009.pdf" target="top">Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.7 - 2<br>
+Sect.7 - 3<br>
+Sect.7 - 3<br>
+Sect.7 - 3<br>
+Sect.7 - 5<br>
+Sect.7 -9<br>
+Sect.7 - 20<br>
+Sect.7 - 21<br>
+</td>	
+</tr>
+
+<!-- section 8 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">ARM: 1176 IEM Reference Methodology</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">Introduction</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">ARM-Cadence Implementation Reference Methodologies</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">ARM1176 Processor</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">ARM1176JZF-S Low-Power Reference Methodology</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect8_06052009.pdf" target="top">Conclusion</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.8 - 2<br>
+Sect.8 - 2<br>
+Sect.8 - 3<br>
+Sect.8 - 4<br>
+Sect.8 - 8<br>
+Sect.8 - 26<br>
+</td>	
+</tr>
+
+<!-- section 9 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Faraday: CPF-Based Low-Power Design Methodology for Platform-Based SoCs</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Faraday Design Services and Low-Power Design</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Introduction</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Faraday CPF Flow</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Faraday So Compiler CPF-Enabled Platform-Based Design for Low-Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">A Low-Power Platform-Based Design Example</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect9_06052009.pdf" target="top">Faraday CPF Low-Power SoCompiler Design Methodology Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.9 - 2<br>
+Sect.9 - 2<br>
+Sect.9 - 3<br>
+Sect.9 - 4<br>
+Sect.9 - 6<br>
+Sect.9 - 17<br>
+Sect.9 - 23<br>
+</td>	
+</tr>
+
+<!-- section 10 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect10_06052009.pdf" target="top">Sequence Design: Early Power Analysis with CPF</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect10_06052009.pdf" target="top">Design for Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect10_06052009.pdf" target="top">Nano CPU Design Overview</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect10_06052009.pdf" target="top">Conclusions</a><br>
+
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.10 - 2<br>
+Sect.10 - 2<br>
+Sect.10 - 7<br>
+Sect.10 - 11<br>
+</td>	
+</tr>
+
+<!-- section 11 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect11_06052009.pdf" target="top">ARM Cortex iRM: CPF-Driven Low-Power Functionality in a High-Performance Design Flow</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect11_06052009.pdf" target="top">ARM and Cadence Collaboration</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect11_06052009.pdf" target="top">iRM Flow Setups: Adding Low-Power Functionality to a High-Performance Design Flow</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect11_06052009.pdf" target="top">Other Low-Power Functionality Additions to a High-Performance Design Flow</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect11_06052009.pdf" target="top">Conclusions and Availability of ARM/Cadence iRMs </a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.11 - 2<br>
+Sect.11 - 2<br>
+Sect.11 - 5<br>
+Sect.11 - 16<br>
+Sect.11 - 19<br>
+</td>	
+</tr>
+
+<!-- section 12 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">When Do You Know You Have Saved Enough Power?</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Impact of Low-Power Design</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Power Dissipation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Static Power Optimization</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Static Power Optimization</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Dynamic Power Optimization</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">ARM Intelligent Energy Manager&#153;(IEM)</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Power Savings in Multicore Processors</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect12_06052009.pdf" target="top">Conclusions</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.12 - 2<br>
+Sect.12 - 2<br>
+Sect.12 - 3<br>
+Sect.12 - 3<br>
+Sect.12 - 5<br>
+Sect.12 - 7<br>
+Sect.12 - 11<br>
+Sect.12 - 14<br>
+Sect.12 - 16<br>
+</td>	
+</tr>
+
+<!-- section 13 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">AMD: Power Gating in a High-Performance GPU</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">AMD and Low Power</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">Front-End Low-Power Logical Design/Verification 
+Flow and Methodology
+</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">Back-End Low-Power Physical 
+Design/Verification Flow and Methodology
+</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">CPF and Results</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect13_06052009.pdf" target="top">Summary of Results</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+Sect.13 - 2<br>
+Sect.13 - 2<br>
+Sect.13 - 9<br>
+Sect.13 - 14<br>
+Sect.13 - 19<br>
+Sect.13 - 22<br>
+</td>	
+</tr>
+
+
+<!-- section 14 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">ARM 1176-JZFS CPU-Based Low-Power Subsystem:<br>
+Methodology to Reduce Electrical and Functional Failure in a Low-Power Design </a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">Abstract</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">Overview of Ulterior Project</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">Ulterior Implementation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">Assembly and Packaging</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sect14_06152009.pdf" target="top">Ulterior Implementation Results</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+	&nbsp;<br>
+Sect.14 - 2<br>
+Sect.14 - 2<br>
+Sect.14 - 2<br>
+Sect.14 - 11<br>
+Sect.14 - 22<br>
+Sect.14 - 23<br>
+</td>	
+</tr>
+
+<!-- section 15 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Sonics: CPF Flow for Highly-Configurable On-Chip Network IP </a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Overview</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Sonic Power Management Features</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">CPF Generation and Automation</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Sample SoC Design</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Sonics CPF-based Low-Power Flow</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Low-Power Reference Flow and Tools</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec15_09142009.pdf" target="top">Conclusion</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+	
+Sect.15 - 2<br>
+Sect.15 - 2<br>
+Sect.15 - 4<br>
+Sect.15 - 5<br>
+Sect.15 - 6<br>
+Sect.15 - 7<br>
+Sect.15 - 12<br>
+Sect.15 - 14<br>
+</td>	
+</tr>
+
+<!-- section 16 -->
+<tr valign="top">
+	<td style="padding: 6px 20px 0px 80px;">
+	<span class="subTitle"><a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Virage Logic: Minimizing Design Complexity with 
+Power-Optimized Physical IP</a></span><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Virage Logic’s IP Portfolio </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Economics of Battery Life</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Economics of IC Cooling</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Low Power Design Solutions</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Virage Logic Power-Optimization Kit:
+Standard Cell Set</a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Standard Cell in the Power Optimization Kit </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Using Library CPF for Level Shifters, Retention Flops
+and Power Switches </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">40nm SiWare Memory Performance/Power
+Tradeoffs for Bank and Column Mux </a><br>
+&nbsp; &nbsp; <a href="pfi_lpg_chapters/lpg_sec16_09232009.pdf" target="top">Summary</a><br>
+	</td>
+	<td style="padding: 6px 30px 0px 0px;">
+	
+Sect.16 - 2<br>
+Sect.16 - 2<br>
+Sect.16 - 2<br>
+Sect.16 - 3<br>
+Sect.16 - 4<br>
+Sect.16 - 5<br>
+Sect.16 - 5<br>
+Sect.16 - 10<br>
+Sect.16 - 12<br>
+Sect.16 - 19<br>
+</td>	
+</tr>
+
+
+<tr><td colspan="2">
+<p>&nbsp;</p>
+<p style="padding-right: 20px;"><img src="images/toc_pf_logo.gif" width="181" height="37" border="0" alt="power forward" align="right"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</td></tr>
+</table>
+
+</body>
+</html>
