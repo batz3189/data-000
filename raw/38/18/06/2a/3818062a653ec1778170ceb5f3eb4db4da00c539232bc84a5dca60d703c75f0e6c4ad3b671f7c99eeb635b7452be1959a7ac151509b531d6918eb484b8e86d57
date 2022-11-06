@@ -1,0 +1,590 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Application-Specific Integrated Circuits - Addison-Wesley and Benjamin Cummings Catalog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="Microsoft FrontPage 6.0" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff leftMargin=4 topMargin=4 marginwidth="4" marginheight="4">
+<TABLE id=CART_ACCOUNT cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=ver11 align=right></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0><A name=top></A>
+  <TBODY></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=4 width="98%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width="1%">&nbsp;</TD>
+    <TD vAlign=top align=left><!-- right column -->
+      <TABLE id=CORE_DATA cellSpacing=0 cellPadding=5 border=0>
+        <TBODY>
+        <TR>
+          <TD class=title colSpan=3><B>Application-Specific Integrated 
+            Circuits</B></TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width="1%">
+            <TABLE cellSpacing=0 cellPadding=1 border=0>
+              <TBODY>
+              <TR>
+                <TD bgColor=#000000><A class=small 
+                  title="View Larger Cover Image" 
+                  href="http://www-fp.aw.com/bigcovers/0201500221.jpg" 
+                  target=_blank><IMG alt="View Larger Cover Image" 
+                  src="Contents_files/0201500221.jpg" 
+            border=0></A></TD></TR></TBODY></TABLE></TD>
+          <TD vAlign=top align=left width="50%">
+            <P class=authname><B>Michael John Sebastian Smith</B>, <I>University 
+            of Hawaii</I><BR></P>
+            <P class=small>ISBN: 0-201-50022-1<BR>Publisher: Addison Wesley 
+            Professional<BR>Copyright: 1997<BR>Format: Cloth; 1040 
+            pp<BR>Published: 06/10/1997<BR>Status: In stock <B><BR>Our Price: 
+            $74.99<BR>&nbsp;</B></P></TD>
+          <TD vAlign=top align=left width="49%">
+            <TABLE cellSpacing=0 cellPadding=10 width=90 border=0 
+              name="BADGE"><TBODY>
+              <TR>
+                <TD vAlign=top 
+      align=middle></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- Vignette V6 Sat Nov 13 11:04:12 2004 -->
+      <TABLE cellSpacing=0 cellPadding=5 width="100%" border=0 name="TOC">
+        <TBODY>
+        <TR>
+          <TD class=ver14 vAlign=top align=left bgColor=#cc99ff><B>Table of 
+            Contents</B></TD></TR>
+        <TR>
+          <TD class=ver11 vAlign=top align=left>(<I>Each chapter concludes 
+            with a Summary, Problems, Bibliography and 
+            References.</I>)<BR><BR><b>1. Introduction to ASICs. </b><br>
+			Types of ASIC.<br>
+			Full-Custom ASICs.<br>
+			Standard-Cell?Based ASICs.<br>
+			Gate-Array?Based ASICs.<br>
+			Channeled Gate-Array.<br>
+			Channelless Gate-Array.<br>
+			Structured Gate-Array.<br>
+			Programmable Logic Devices.<br>
+			Field-Programmable Gate Arrays.<br>
+			Design Flow.<br>
+			Case Study.<br>
+			Economics of ASICs.<br>
+			Comparison Between ASIC Technologies.<br>
+			Product Cost.<br>
+			ASIC Fixed Costs.<br>
+			ASIC Variable Costs.<br>
+			ASIC Cell Libraries.<br>
+			<br>
+			<br>
+			<b>2. CMOS Logic. </b><br>
+			CMOS Transistors.<br>
+			P-Channel Transistors.<br>
+			Velocity Saturation.<br>
+			SPICE Models.<br>
+			Logic Levels.<br>
+			The CMOS Process.<br>
+			Sheet Resistance.<br>
+			CMOS Design Rules.<br>
+			Combinational Logic Cells.<br>
+			Pushing Bubbles.<br>
+			Drive Strength.<br>
+			Transmission Gates.<br>
+			Exclusive-OR Cell.<br>
+			Sequential Logic Cells.<br>
+			Latch.<br>
+			Flip-Flop.<br>
+			Clocked Inverter.<br>
+			Datapath Logic Cells.<br>
+			Datapath Elements.<br>
+			Adders.<br>
+			A Simple Example.<br>
+			Multipliers.<br>
+			Other Arithmetic Systems.<br>
+			Other Datapath Operators.<br>
+			I/O Cells.<br>
+			Cell Compilers.<br>
+			<br>
+			<br>
+			<b>3. ASIC Library Design. </b><br>
+			Transistors as Resistors.<br>
+			Transistor Parasitic Capacitance.<br>
+			Junction Capacitance.<br>
+			Overlap Capacitance.<br>
+			Gate Capacitance.<br>
+			Input Slew Rate.<br>
+			Logical Effort.<br>
+			Predicting Delay.<br>
+			Logical Area and Logical Efficiency.<br>
+			Logical Paths.<br>
+			Multistage Cells.<br>
+			Optimum Delay.<br>
+			Optimum Number of Stages.<br>
+			Library-Cell Design.<br>
+			Library Architecture.<br>
+			Gate-Array Design.<br>
+			Standard-Cell Design.<br>
+			Datapath-Cell Design.<br>
+			<br>
+			<br>
+			<br>
+			<b>4. Programmable ASICs. </b><br>
+			The Antifuse.<br>
+			Metal?Metal Antifuse.<br>
+			Static RAM.<br>
+			EPROM and EEPROM Technology.<br>
+			Practical Issues.<br>
+			FPGAs in Use.<br>
+			Specifications.<br>
+			PREP Benchmarks.<br>
+			FPGA Economics.<br>
+			FPGA Pricing.<br>
+			Pricing Examples.<br>
+			<br>
+			<br>
+			<b>5. Programmable ASIC Logic Cells. </b><br>
+			Actel.<br>
+			ACT 1 Logic Module.<br>
+			Shannonés Expansion Theorem.<br>
+			Multiplexer Logic as Function Generators.<br>
+			ACT 2 and ACT 3 Logic Modules.<br>
+			Timing Model and Critical Path.<br>
+			Speed Grading.<br>
+			Worst-Case Timing.<br>
+			Actel Logic Module Analysis.<br>
+			Xilinx LCA.<br>
+			XC3000 CLB.<br>
+			XC4000 Logic Block.<br>
+			XC5200 Logic Block.<br>
+			Xilinx CLB Analysis.<br>
+			Altera FLEX.<br>
+			Altera MAX.<br>
+			Logic Expanders.<br>
+			Timing Model.<br>
+			Power Dissipation in Complex PLDs.<br>
+			<br>
+			<br>
+			<b>6. Programmable ASIC I/O Cells. </b><br>
+			DC Output.<br>
+			Totem-Pole Output.<br>
+			Clamp Diodes.<br>
+			AC Output.<br>
+			Supply Bounce.<br>
+			Transmission Lines.<br>
+			DC Input.<br>
+			Noise Margins.<br>
+			Mixed-Voltage Systems.<br>
+			AC Input.<br>
+			Metastability.<br>
+			Clock Input.<br>
+			Registered Inputs.<br>
+			Power Input.<br>
+			Power Dissipation.<br>
+			Power-On Reset.<br>
+			Xilinx I/O Block.<br>
+			Boundary Scan.<br>
+			Other I/O Cells.<br>
+			<br>
+			<br>
+			<b>7. Programmable ASIC Interconnect.</b><br>
+			Actel ACT.<br>
+			Routing Resources.<br>
+			Elmoreés Constant.<br>
+			RC Delay in Antifuse Connections.<br>
+			Antifuse Parasitic Capacitance.<br>
+			ACT 2 and ACT 3 Interconnect.<br>
+			Xilinx LCA.<br>
+			Xilinx EPLD.<br>
+			Altera MAX 5k and 7k.<br>
+			Altera MAX 9k.<br>
+			Altera FLEX.<br>
+			<br>
+			<br>
+			<b>8. Programmable ASIC Design Software. </b><br>
+			Design Systems.<br>
+			Xilinx.<br>
+			Actel.<br>
+			Altera.<br>
+			Logic Synthesis.<br>
+			FPGA Synthesis.<br>
+			The Halfgate ASIC.<br>
+			Xilinx.<br>
+			Actel.<br>
+			Altera.<br>
+			Comparison.<br>
+			FPGA Vendors.<br>
+			Third-party Software.<br>
+			<br>
+			<br>
+			<b>9. Low-Level Design Entry.</b><br>
+			Schematic Entry.<br>
+			Hierarchical Design.<br>
+			The Cell Library.<br>
+			Names.<br>
+			Schematic Icons and Symbols.<br>
+			Nets.<br>
+			Schematic Entry for ASICs and PCBs.<br>
+			Connections.<br>
+			Vectored Instances and Buses.<br>
+			Edit-in-Place.<br>
+			Attributes.<br>
+			Netlist Screener.<br>
+			Schematic-Entry Tools.<br>
+			Back-Annotation.<br>
+			Low-level Design Languages.<br>
+			ABEL.<br>
+			CUPL.<br>
+			PALASM.<br>
+			PLA Tools.<br>
+			EDIF.<br>
+			EDIF Syntax.<br>
+			An EDIF Netlist Example.<br>
+			An EDIF Schematic Icon.<br>
+			An EDIF Example.<br>
+			CFI Design Representation.<br>
+			CFI Connectivity Model.<br>
+			<br>
+			<br>
+			<b>10. VHDL. </b><br>
+			A Counter.<br>
+			A 4-bit Multiplier.<br>
+			An 8-bit Adder.<br>
+			A Register-Accumulator.<br>
+			Zero-Detector.<br>
+			A Shift-Register.<br>
+			A State Machine.<br>
+			A Multiplier.<br>
+			Packages and Test Bench.<br>
+			Syntax and Semantics of VHDL.<br>
+			Identifiers and Literals.<br>
+			Entity and Architecture.<br>
+			Packages and Libraries.<br>
+			Standard Package.<br>
+			Std_logic_1164 Package.<br>
+			Textio Package.<br>
+			Other Packages.<br>
+			Creating Packages.<br>
+			Interface Declaration.<br>
+			Port Declaration.<br>
+			Generics.<br>
+			Type Declaration.<br>
+			Other Declarations.<br>
+			Object Declarations.<br>
+			Subprogram Declarations.<br>
+			Alias and Attribute Declarations.<br>
+			Predefined Attributes.<br>
+			Sequential Statements.<br>
+			Wait Statement.<br>
+			Assertion and Report Statements.<br>
+			Assignment Statements.<br>
+			Procedure Call.<br>
+			If Statement.<br>
+			Case Statement.<br>
+			Other Sequential Control Statements.<br>
+			Operators.<br>
+			Arithmetic.<br>
+			IEEE Synthesis Packages.<br>
+			Concurrent Statements.<br>
+			Block Statement.<br>
+			Process Statement.<br>
+			Concurrent Procedure Call.<br>
+			Concurrent Signal Assignment.<br>
+			Concurrent Assertion Statement.<br>
+			Component Instantiation.<br>
+			Generate Statement.<br>
+			Execution.<br>
+			Configurations and Specifications.<br>
+			An Engine Controller.<br>
+			<br>
+			<br>
+			<b>11. Verilog HDL. </b><br>
+			A Counter.<br>
+			Basics of the Verilog Language.<br>
+			Verilog Logic Values.<br>
+			Verilog Data Types.<br>
+			Other Wire Types.<br>
+			Numbers.<br>
+			Negative Numbers.<br>
+			Strings.<br>
+			Operators.<br>
+			Arithmetic.<br>
+			Hierarchy.<br>
+			Procedures and Assignments.<br>
+			Continuous Assignment Statement.<br>
+			Sequential Block.<br>
+			Procedural Assignments.<br>
+			Timing Controls and Delay.<br>
+			Timing Control.<br>
+			Data Slip.<br>
+			Wait Statement.<br>
+			Blocking and Non-blocking Assignments.<br>
+			Procedural Continuous Assignment.<br>
+			Tasks and Functions.<br>
+			Control Statements.<br>
+			Case and If Statement.<br>
+			Loop Statement.<br>
+			Disable.<br>
+			Fork and Join.<br>
+			Logic Gate Modeling.<br>
+			Built-in Logic Models.<br>
+			User-defined Primitives.<br>
+			Modeling Delay.<br>
+			Net and Gate Delay.<br>
+			Pin-to-pin Delay.<br>
+			Altering Parameters.<br>
+			A Viterbi Decoder.<br>
+			Viterbi Encoder.<br>
+			The Received Signal.<br>
+			Testing the System.<br>
+			Verilog Decoder Model.<br>
+			Other Verilog Features.<br>
+			Display Tasks.<br>
+			File I/O Tasks.<br>
+			Timescale, Simulation, and Timing Check Tasks.<br>
+			PLA Tasks.<br>
+			Stochastic Analysis Tasks.<br>
+			Simulation Time Functions.<br>
+			Conversion Functions.<br>
+			Probability Distribution Functions.<br>
+			Programming Language Interface.<br>
+			The Viterbi Decoder.<br>
+			<br>
+			<br>
+			<b>12. Logic Synthesis. </b><br>
+			A Logic-Synthesis Example.<br>
+			A Comparator/MUX.<br>
+			An Actel Version of the Comparator/MUX.<br>
+			Inside a Logic Synthesizer.<br>
+			Synthesis of the Viterbi Decoder.<br>
+			ASIC I/O.<br>
+			Flip-Flops.<br>
+			The Top-Level Model.<br>
+			Verilog and Logic Synthesis.<br>
+			Verilog Modeling.<br>
+			Delays in Verilog.<br>
+			Blocking and Nonblocking Assignments.<br>
+			Combinational Logic in Verilog.<br>
+			Multiplexers In Verilog.<br>
+			The Verilog Case Statement.<br>
+			Decoders In Verilog.<br>
+			Priority Encoder in Verilog.<br>
+			Arithmetic in Verilog.<br>
+			Sequential Logic in Verilog.<br>
+			Component Instantiation in Verilog.<br>
+			Datapath Synthesis in Verilog.<br>
+			VHDL and Logic Synthesis.<br>
+			Initialization and Reset.<br>
+			Combinational Logic Synthesis in VHDL.<br>
+			Multiplexers in VHDL.<br>
+			Decoders in VHDL.<br>
+			Adders in VHDL.<br>
+			Sequential Logic in VHDL.<br>
+			Instantiation in VHDL.<br>
+			Shift Registers and Clocking in VHDL.<br>
+			Adders and Arithmetic Functions.<br>
+			Adder-subtracter and Donét Cares.<br>
+			Finite-State Machine Synthesis.<br>
+			FSM Synthesis in Verilog.<br>
+			FSM Synthesis in VHDL.<br>
+			Memory Synthesis.<br>
+			Memory Synthesis in Verilog.<br>
+			Memory Synthesis in VHDL.<br>
+			The Multiplier.<br>
+			Messages During Synthesis.<br>
+			The Engine Controller.<br>
+			Performance-Driven Synthesis.<br>
+			Optimization of the Viterbi Decoder.<br>
+			<br>
+			<br>
+			<b>13. Simulation. </b><br>
+			The Different Types of Simulation.<br>
+			The Comparator/MUX Example.<br>
+			Structural Simulation.<br>
+			Static Timing Analysis.<br>
+			Gate-Level Simulation.<br>
+			Net Capacitance.<br>
+			Logic Systems.<br>
+			Signal Resolution.<br>
+			Logic Strength.<br>
+			How Logic Simulation Works.<br>
+			VHDL Simulation Cycle.<br>
+			Delay.<br>
+			Cell Models.<br>
+			Primitive Models.<br>
+			Synopsys Models.<br>
+			Verilog Models.<br>
+			VHDL Models.<br>
+			VITAL Models.<br>
+			SDF in Simulation.<br>
+			Delay Models.<br>
+			Using a Library Data Book.<br>
+			Input-Slope Delay Model.<br>
+			Limitations of Logic Simulation.<br>
+			Static Timing Analysis.<br>
+			Hold Time.<br>
+			Entry Delay.<br>
+			Exit Delay.<br>
+			External Setup Time.<br>
+			Formal Verification.<br>
+			An Example.<br>
+			Understanding Formal Verification.<br>
+			Adding an Assertion.<br>
+			Completing a Proof.<br>
+			Switch-Level Simulation.<br>
+			Transistor-Level Simulation.<br>
+			A PSpice Example.<br>
+			SPICE Models.<br>
+			<br>
+			<br>
+			<br>
+			<b>14. Test. </b><br>
+			The Importance of Test.<br>
+			Boundary-Scan Test.<br>
+			BST Cells.<br>
+			BST Registers.<br>
+			Instruction Decoder.<br>
+			TAP Controller.<br>
+			Boundary-Scan Controller.<br>
+			A Simple Boundary-Scan Example.<br>
+			BSDL.<br>
+			Faults.<br>
+			Reliability.<br>
+			Fault Models.<br>
+			Physical Faults.<br>
+			Stuck-at Fault Model.<br>
+			Logical Faults.<br>
+			IDDQ Test.<br>
+			Fault Collapsing.<br>
+			Fault Collapsing Example.<br>
+			Fault Simulation.<br>
+			Serial Fault Simulation.<br>
+			Parallel Fault Simulation.<br>
+			Concurrent Fault Simulation.<br>
+			Nondeterministic Fault Simulation.<br>
+			Fault-Simulation Results.<br>
+			Fault-Simulator Logic Systems.<br>
+			Hardware Acceleration.<br>
+			A Fault Simulation Example.<br>
+			Fault Simulation in an ASIC Design Flow.<br>
+			Automatic Test-Pattern Generation.<br>
+			The D-Calculus.<br>
+			A Basic ATPG Algorithm.<br>
+			The PODEM Algorithm.<br>
+			Controllability and Observability.<br>
+			Scan Test.<br>
+			Built-in Self-test.<br>
+			LFSR.<br>
+			Signature Analysis.<br>
+			A Simple BIST Example.<br>
+			Aliasing.<br>
+			LFSR Theory.<br>
+			LFSR Example.<br>
+			MISR.<br>
+			A Simple Test Example.<br>
+			Test Logic Insertion.<br>
+			How the Test Software Works.<br>
+			ATVG and Fault Simulation.<br>
+			Test Vectors.<br>
+			Production Tester Vector Formats.<br>
+			Test Flow.<br>
+			The Viterbi Decoder Example.<br>
+			<br>
+			<br>
+			<b>15. ASIC Construction. </b><br>
+			Physical Design.<br>
+			CAD Tools.<br>
+			Methods and Algorithms.<br>
+			System Partitioning.<br>
+			Estimating ASIC Size.<br>
+			Power Dissipation.<br>
+			Switching Current.<br>
+			Short-Circuit Current.<br>
+			Subthreshold and Leakage Current.<br>
+			FPGA Partitioning.<br>
+			ATM Simulator.<br>
+			Automatic Partitioning with FPGAs.<br>
+			Partitioning Methods.<br>
+			Measuring Connectivity.<br>
+			A Simple Partitioning Example.<br>
+			Constructive Partitioning.<br>
+			Iterative Partitioning Improvement.<br>
+			The Kernighan?Lin Algorithm.<br>
+			The Ratio-Cut Algorithm.<br>
+			The Look-ahead Algorithm.<br>
+			Simulated Annealing.<br>
+			Other Partitioning Objectives.<br>
+			<br>
+			<br>
+			<b>16. Floorplanning and Placement.</b><br>
+			Floorplanning.<br>
+			Floorplanning Goals and Objectives.<br>
+			Measurement of Delay in Floorplanning.<br>
+			Floorplanning Tools.<br>
+			Channel Definition.<br>
+			I/O and Power Planning.<br>
+			Clock Planning.<br>
+			Placement.<br>
+			Placement Terms and Definitions.<br>
+			Placement Goals And Objectives.<br>
+			Measurement of Placement Goals and Objectives.<br>
+			Placement Algorithms.<br>
+			Eigenvalue Placement Example.<br>
+			Iterative Placement Improvement.<br>
+			Placement Using Simulated Annealing.<br>
+			Timing-Driven Placement Methods.<br>
+			A Simple Placement Example.<br>
+			Physical Design Flow.<br>
+			Information Formats.<br>
+			SDF for Floorplanning and Placement.<br>
+			PDEF.<br>
+			LEF and DEF.<br>
+			<br>
+			<br>
+			<b>17. Routing. </b><br>
+			Global Routing.<br>
+			Goals and Objectives.<br>
+			Measurement of Interconnect Delay.<br>
+			Global Routing Methods.<br>
+			Global Routing Between Blocks.<br>
+			Global Routing Inside Flexible Blocks.<br>
+			Timing-Driven Methods.<br>
+			Back-annotation.<br>
+			Detailed Routing.<br>
+			Goals and Objectives.<br>
+			Measurement of Channel Density.<br>
+			Algorithms.<br>
+			Left-Edge Algorithm.<br>
+			Constraints and Routing Graphs.<br>
+			Area-Routing Algorithms.<br>
+			Multilevel Routing.<br>
+			Timing-Driven Detailed Routing.<br>
+			Final Routing Steps.<br>
+			Special Routing.<br>
+			Clock Routing.<br>
+			Power Routing.<br>
+			Circuit Extraction and DRC.<br>
+			SPF, RSPF and DSPF.<br>
+			Design Checks.<br>
+			Mask Preparation.<br>
+			<br>
+			<br>
+			<b>Appendix A. VHDL Resources.</b><br>
+			BNF.<br>
+			VHDL Syntax.<br>
+			BNF Index.<br>
+			Bibliography.<br>
+			References.<br>
+			<br>
+			<br>
+			<b>Appendix B. Verilog HDLResources. </b><br>
+			Explanation of the Verilog HDL BNF.<br>
+			Verilog HDL Syntax.<br>
+			BNF Index.<br>
+			Verilog HDL LRM.<br>
+			Bibliography.<br>
+			References.<br>
+			<br>
+			<br>
+			<b>Glossary of Symbols and Acronyms. </b> <BR></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- FOOTER -->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD width=70>&nbsp;</TD>
+    <TD class=footer 
+vAlign=top>&nbsp;</TD></TR></TBODY></TABLE><!-- END FOOTER --></BODY></HTML>
