@@ -1,0 +1,1010 @@
+/*
+ * Copyright (c) 2000-2008
+ * Author: Weiming Zhou
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.  
+ */
+
+#include <windows.h>
+
+#include "CapiGlobal.h"
+#include "DoubleList.h"
+
+
+/**	双向链表的创建函数，创建完后链表还是空的没有节点在里面
+
+	@param	void - 无	
+	@return	DOUBLELIST * - 失败返回NULL, 成功时返回一个双向链表结构体指针	
+*/
+DOUBLELIST * DoubleList_Create( void )
+{
+    DOUBLELIST  *pList;
+
+    /* 分配内存操作 */
+    pList = (DOUBLELIST *)malloc(sizeof(DOUBLELIST));
+    if ( pList != NULL )
+    {
+        /* 初始化链表结构体各指针成员为空，链表节点个数为0 */
+        pList->pHead = NULL;
+        pList->pTail = NULL;
+        pList->pCur = NULL;
+        pList->uCount = 0;
+    }
+
+    return pList;
+}
+
+
+/**	双向链表的释放函数
+
+	@param	DOUBLELIST *pList - 要释放的双向链表的指针	
+	@param	DESTROYFUNC pDestroyFunc - 链表节点数据释放回调函数	
+	@return	void - 无	
+*/
+void DoubleList_Destroy( DOUBLELIST *pList, DESTROYFUNC DestroyFunc )
+{
+    DOUBLENODE  *pNode;
+
+    if ( pList )
+    {
+        /* 从头节点开始，一个接一个释放链表节点及节点数据 */
+        pNode = pList->pHead;
+        while ( pNode != NULL )
+        {
+            DOUBLENODE  *pDelNode;
+
+            pDelNode = pNode;
+            pNode = pNode->pNext;
+
+            if ( DestroyFunc != NULL && pDelNode->pData != NULL )
+            {
+                /* 释放数据 */
+                (*DestroyFunc)( pDelNode->pData );
+            }
+            free( pDelNode ); /* 释放节点 */
+        }
+        /* 释放链表结构体 */ 
+        free( pList );
+    }
+}
+
+
+/**	双向链表的添加节点函数，添加的节点放在双向链表的头部
+
+	@param	DOUBLELIST *pList - 要添加的双向链表指针	
+	@param	void *pData - 要添加的节点的数据指针	
+	@return	INT - 失败返回CAPI_FAILED，成功返回CAPI_SUCCESS	
+*/
+INT	DoubleList_InsertHead( DOUBLELIST *pList, void *pData )
+{
+    DOUBLENODE  *pNode;
+
+    /* 参数校验 */
+    if ( pList == NULL || pData == NULL )
+    {
+        return CAPI_FAILED;
+    }
+
+    /* 新建一个节点 */
+    pNode = (DOUBLENODE *)malloc( sizeof(DOUBLENODE) );
+    if ( pNode == NULL )
+    {
+        return CAPI_FAILED;
+    }
+    pNode->pData = pData;  /* 将节点数据指针指向传进来的数据 */
+
+    /* 将新建节点的下一节点指针指向头节点，并将头节点改为新建的节点 */
+    pNode->pNext = pList->pHead;
+    pNode->pPrev = NULL;
+    if ( pList->pHead != NULL )
+    {
+        pList->pHead->pPrev = pNode;
+    }
+    pList->pHead = pNode;
+
+    /*
+     * 判断是否尾节点指针为空，如果为空表示原来链表中没有节点，
+     * 此时应该将尾节点指向新加入的节点 
+     */
+    if ( pList->pTail == NULL )
+    {
+        pList->pTail = pNode;
+    }
+
+    /* 将链表节点数据加1 */
+    pList->uCount++;
+    
+    return CAPI_SUCCESS;
+}
+
+
+/**	双向链表的添加节点函数，添加的节点放在双向链表的尾部
+
+	@param	DOUBLELIST *pList - 要添加的双向链表指针	
+	@param	void *pData - 要添加的节点的数据指针
+	@return	INT - 失败返回CAPI_FAILED，成功返回CAPI_SUCCESS	
+*/
+INT	DoubleList_InsertTail( DOUBLELIST *pList, void *pData )
+{
+    DOUBLENODE  *pNode;
+
+    /* 参数校验 */
+    if ( pList == NULL || pData == NULL )
+    {
+        return CAPI_FAILED;
+    }
+
+    /* 新建一个节点 */
+    pNode = (DOUBLENODE *)malloc( sizeof(DOUBLENODE) );
+    if ( pNode == NULL )
+    {
+        return CAPI_FAILED;
+    }
+    pNode->pData = pData;  /* 将节点数据指针指向传进来的数据 */
+    pNode->pNext = NULL;   /* 将节点的下一节点赋为空指针NULL */
+    pNode->pPrev = pList->pTail;
+
+    /*
+     * 判断是否尾节点指针为空，如果为空表示原来链表中没有节点，
+     * 此时应该将尾节点指向新加入的节点, 并且头节点指针也应该指向新节点 
+     */
+    if ( pList->pTail == NULL )
+    {
+        pList->pHead = pNode;
+    }
+    else
+    {
+        /*
+         * 如果尾节点指针不为空，此时应该将尾节点下一节点指针指向新加入的 
+         * 节点,并且尾节点指针也应该指向新节点 
+         */
+        pList->pTail->pNext = pNode;
+    }
+
+    pList->pTail = pNode;
+
+    /* 将链表节点数据加1 */
+    pList->uCount++;
+    
+    return CAPI_SUCCESS;
+}
+
+
+/**	双向链表的弹出头节点函数
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@return	void * - 失败返回NULL, 成功返回要弹出的头节点的数据指针	
+*/
+void *	DoubleList_PopHead( DOUBLELIST *pList )
+{
+	DOUBLENODE	*pPopNode;   /* 用来指向要弹出数据的节点的指针 */
+	void		*pPopData;   /* 用来指向要弹出的数据的指针 */
+
+    /* 参数校验 */
+    if ( pList == NULL || pList->pHead == NULL ) 
+    {
+		return NULL;
+    }
+
+    /* 将要弹出数据的节点指针指向链表头节点，弹出数据指针指向头节点的数据 */
+    pPopNode = pList->pHead;
+    pPopData = pPopNode->pData;
+
+    /* 
+     * 判断当前节点指针是否指向头节点，如果指向头节点的话则需要将其
+     * 指向头节点的下一节点 
+     */
+    if ( pList->pCur == pList->pHead )
+    {
+        pList->pCur = pList->pHead->pNext;
+    }
+
+    /* 将头节点指针指向头节点的下一节点 */
+    pList->pHead = pList->pHead->pNext;
+    if ( pList->pHead != NULL )
+    {
+        pList->pHead->pPrev = NULL;
+    }
+	
+    /* 将链表节点数量减1 */
+    pList->uCount--;
+
+    /* 如果链表的节点数量已经为0则表示原来只有一个节点，弹出头节点后，
+     * 此时链表已经为空，没有节点在里面，此时应该将尾节点指针赋空
+     * 当前节点指针由于前面已经处理过了，如果只有一个节点的话肯定为空
+     * 所以这里不需要处理当前节点指针
+     */
+    if ( pList->uCount == 0 ) {
+		pList->pTail = NULL;
+	}
+	
+    /* 释放弹出的节点, 注意这里并没有释放节点数据指针 */
+    free( pPopNode );
+
+    return pPopData;    /* 返回头节点的数据指针 */
+}
+
+
+/** 双向链表的弹出尾节点函数
+    这个函数由于要查找尾节点的前一节点，因此效率很低
+
+    @param	DOUBLELIST *pList - 要操作的双向链表指针	
+    @return	void * -  失败返回NULL, 成功返回要弹出的尾节点的数据指针	
+*/
+void *	DoubleList_PopTail( DOUBLELIST *pList )
+{
+    DOUBLENODE	*pPopNode;   /* 用来指向要弹出数据的节点的指针 */
+    void		*pPopData;   /* 用来指向要弹出的数据的指针 */
+
+    /* 参数校验 */
+    if ( pList == NULL || pList->pHead == NULL ) 
+    {
+        return NULL;
+	}
+
+    /* 将要弹出数据的节点指针指向链表头节点，弹出数据指针指向头节点的数据 */
+    pPopNode = pList->pTail;
+    pPopData = pPopNode->pData;
+
+    /* 判断当前节点指针是否指向尾节点，如果指向头节点的话则需要将其
+     * 指向空节点 
+     */
+    if ( pList->pCur == pList->pTail )
+    {
+        pList->pCur = NULL;
+    }
+
+    /* 如果链表的头节点和尾节点相同则表示原来只有一个节点，弹出尾节点后，
+     * 此时链表已经为空，没有节点在里面，此时应该将头节点指针赋空
+     * 当前节点指针由于前面已经处理过了，如果只有一个节点的话肯定为空
+     * 所以这里不需要处理当前节点指针
+     */
+    if ( pList->pTail == pList->pHead )
+    {
+	    pList->pHead = NULL;
+    }
+    else 
+    {
+        pList->pTail->pPrev->pNext = NULL;
+    }
+    pList->pTail = pList->pTail->pPrev;
+
+   
+    /* 将链表节点数量减1 */
+    pList->uCount--;
+
+    /* 释放弹出的节点, 注意这里并没有释放节点数据指针 */
+    free( pPopNode );
+
+    return pPopData;    /* 返回头节点的数据指针 */    
+}
+
+
+
+/**	链表的删除节点函数，它将删除和pMatchData参数有相同数据的节点
+    如果有许多有相同数据的节点它将只删除第一个有相同数据的节点
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@param	void *pMatchData - 要删除节点的匹配数据	
+	@param	COMPAREFUNC CompareFunc - 数据比较函数用来比较pMatchData参数和链表
+                                      节点参数是否相等	
+	@param	DESTROYFUNC DestroyFunc - 链表节点的数据释放函数	
+	@return	INT (by default) - CAPI_FAILED表示失败或链表中没有匹配的数据，
+                               CAPI_SUCCESS表示成功删除	
+*/
+INT	 DoubleList_Delete( DOUBLELIST *pList,  
+                        void *pMatchData, 
+                        COMPAREFUNC CompareFunc, 
+                        DESTROYFUNC DestroyFunc )
+{
+    DOUBLENODE  *pNode;
+    DOUBLENODE  *pPrevNode;
+
+    /* 参数校验 */
+    if ( pList == NULL || CompareFunc == NULL )
+    {
+        return CAPI_FAILED;
+    }
+
+    pNode = pList->pHead;
+    pPrevNode = pNode;
+
+    while ( pNode != NULL )
+    {
+        /* 比较节点数据是否和匹配数据匹配 */
+        if ( (*CompareFunc)( pNode->pData, pMatchData ) == 0 )
+        {
+            if ( pPrevNode == pNode )
+            {
+                /* 头节点匹配上了，需要删除头节点 */
+                pList->pHead = pNode->pNext;
+                if ( pList->pHead != NULL )
+                {
+                    pList->pHead->pPrev = NULL;
+                }
+                else
+                {
+                    /* 
+                     * 链表里只有一个节点
+                     * 此时需要将链表尾节点指针和链表当前节点指针赋空
+                     */
+                    pList->pTail = NULL;
+                    pList->pCur = NULL;
+                }
+            }
+            else
+            {
+                pPrevNode->pNext = pNode->pNext;
+                if ( pNode->pNext != NULL )
+                {
+                    pNode->pNext->pPrev = pPrevNode;
+                }
+
+                if ( pList->pTail == pNode )
+                {
+                    /* 
+                     * 如果尾节点和pNode相同，表明删除的是尾节点
+                     * 此时需要将尾节点指针指向要删除节点的前一个节点
+                     */
+                    pList->pTail = pPrevNode;
+                }
+
+                if ( pList->pCur == pNode )
+                {
+                    /* 
+                     * 如果链表当前节点和pNode相同，表明删除的是当前节点
+                     * 此时需要将当前节点指针指向要删除节点的前一个节点
+                     */
+                    pList->pCur = pNode->pNext;
+                }
+            }
+
+            /* 释放节点数据和节点占用的内存 */
+            if ( DestroyFunc != NULL && pNode->pData != NULL )
+            {
+                (*DestroyFunc)( pNode->pData );
+            }
+            free( pNode );
+
+            break;
+        }
+        pPrevNode = pNode;
+        pNode = pNode->pNext;
+    }
+
+    return CAPI_SUCCESS;
+}
+
+
+/**	双向链表的获取链表节点数量函数
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@return	UINT - 链表节点数量，为0表示链表是空的没有节点在链表里面
+                   或者参数非法	
+*/
+UINT DoubleList_GetCount(DOUBLELIST *pList)
+{
+    if ( pList == NULL )
+    {
+        return 0;
+    }
+    return pList->uCount;
+}
+
+
+/**	双向链表的获取头节点函数
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@return	void * - 头节点的数据指针	
+*/
+void *	DoubleleList_GetHead( DOUBLELIST *pList )
+{
+    if ( pList == NULL )
+    {
+        return NULL;
+    }
+
+    if ( pList->pHead == NULL )
+    {
+        return NULL;
+    }
+
+    return pList->pHead->pData;
+}
+
+
+/**	双向链表的获取尾节点函数
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@return	void * - 尾节点的数据指针	
+*/
+void * 	DoubleList_GetTail( DOUBLELIST *pList )
+{
+    if ( pList == NULL )
+    {
+        return NULL;
+    }
+
+    if ( pList->pTail != NULL )
+    {
+        return pList->pTail->pData;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+/**	双向链表的查找函数
+
+	@param	DOUBLELIST *pList - 双向链表指针	
+	@param	void *pMatchData - 要查找的匹配数据	
+	@param	COMPAREFUNC CompareFunc - 数据匹配比较函数	
+	@return	void * - 查找到的在双向链表中的匹配数据	
+*/
+void * DoubleList_Find( DOUBLELIST *pList, void *pMatchData, 
+                       COMPAREFUNC CompareFunc )
+{
+	DOUBLENODE	*pNode;
+
+    pNode = pList->pHead;
+	while ( pNode )
+	{
+		if ( (*CompareFunc)( pNode->pData, pMatchData ) == 0  )
+		{
+			void * pData;
+			pData = pNode->pData;
+
+			return pData;
+		}
+		pNode = pNode->pNext;
+	}
+	return NULL;
+}
+
+/**	双向链表的枚举初始化函数
+
+	@param	SINGLELIST *pSingleList - 要操作的双向链表指针
+	@return	void - 无	
+*/
+void DoubleList_EnumBegin( DOUBLELIST *pList )
+{
+    pList->pCur = pList->pHead;
+    return;
+}
+
+
+/**	双向链表枚举下一个节点的函数，第一次调用此函数前必须
+    先调用DoubleList_EnumBegin()函数
+
+	@param	DOUBLELIST *pList - 要操作的双向链表的指针	
+	@return	void * - 枚举到的节点数据指针	
+*/
+void * DoubleList_EnumNext( DOUBLELIST *pList )
+{
+    DOUBLENODE  *pCur;
+    
+    pCur = pList->pCur;
+    if ( pCur != NULL )
+    {
+        pList->pCur = pCur->pNext;
+        
+        return pCur->pData;
+    }
+    return NULL;
+}
+
+
+/**	双向链表的枚举节点函数，第1次调用此函数前要先调用DoubleList_EnumBegin()函数
+
+	@param	DOUBLELIST *pList - 双向链表指针	
+	@return	DOUBLENODE * - 从双向链表中枚举到的节点指针	
+*/
+DOUBLENODE * DoubleList_EnumNode( DOUBLELIST *pList )
+{
+    DOUBLENODE  *pCur;
+    
+    pCur = pList->pCur;
+    if ( pCur != NULL )
+    {
+        pList->pCur = pCur->pNext;
+        
+        return pCur;
+    }
+    return NULL;
+}
+
+
+/**	双向节点的指定节点删除函数
+
+	@param	DOUBLELIST *pList - 双向链表指针	
+	@param	DOUBLENODE *pNode - 要弹出的指定节点指针	
+	@return	DOUBLENODE * - 弹出的节点指针，和pNode相同
+*/
+DOUBLENODE * DoubleList_PopNode( DOUBLELIST *pList, DOUBLENODE *pNode )
+{
+    /* 修改前一个节点的后向指针 */
+    if ( pNode->pPrev != NULL )
+    {
+        pNode->pPrev->pNext = pNode->pNext;
+    }
+
+    /* 修改后一个节点的前向指针 */
+    if ( pNode->pNext != NULL )
+    {
+        pNode->pNext->pPrev = pNode->pPrev;
+    }
+
+    /* 判断是否pCur指针指向弹出节点，如果是则需更新pCur */
+    if ( pList->pCur == pNode )
+    {
+        pList->pCur = pNode->pNext;
+    }
+
+    /* 返回传入的pNode指针 */
+    return pNode;
+}
+
+/**	双向链表的插入排序函数
+    排序是按照从小到大进行排列，这里说的大小是由CompareFunc来决定的
+    因此用户可以通过CompareFunc的返回值设置来决定使用顺序排序或逆序排序
+
+	@param	DOUBLELIST *pList - 要操作的双向链表指针	
+	@param	COMPAREFUNC CompareFunc - 节点数据比较函数	
+	@return	INT - 成功返回1，失败返回0	
+*/
+INT DoubleList_InsertSort( DOUBLELIST *pList, COMPAREFUNC CompareFunc )
+{
+    DOUBLENODE  *pNode;     /* 用来遍历pList的临时指针 */
+    DOUBLENODE  *pPrevNode; /* pNode的前一节点指针 */
+
+    pNode = pList->pHead;
+    pPrevNode = NULL;
+
+    if ( pNode == NULL )
+    {
+        /* 链表中没有节点，我们把它当作已经排好了序 */
+        return CAPI_SUCCESS;
+    }
+
+    while ( pNode->pNext != NULL )
+    {
+        DOUBLENODE  *pTempNode;
+
+        pTempNode = pList->pHead;
+        pPrevNode = NULL;
+        while ( pTempNode != pNode->pNext )
+        {
+            if ( (*CompareFunc)( pNode->pNext->pData, pTempNode->pData ) < 0 )
+            {
+                DOUBLENODE  *pCurNode = pNode->pNext;
+
+                /* 将pCurNode节点弹出来 */
+                pNode->pNext = pNode->pNext->pNext;
+                if ( pNode->pNext != NULL )
+                {
+                    pNode->pNext->pPrev = pNode;
+                }
+
+                /* 执行插入操作 */
+                if ( pPrevNode != NULL ) /* 插入不在头节点前的情况 */
+                {
+                    /* 将pNode->pNext插入pTempNode 之前 */
+                    pPrevNode->pNext = pCurNode;
+                    pCurNode->pPrev = pPrevNode;
+
+                    pCurNode->pNext = pTempNode;
+                    pTempNode->pPrev = pCurNode;
+                }
+                else /* 插入在头节点前的情况 */
+                {
+                    /* 将pNode->pNext节点变为头节点 */
+                    pCurNode->pNext = pTempNode;
+                    pCurNode->pPrev = NULL;
+                    pList->pHead->pPrev = pCurNode;
+                    pList->pHead = pCurNode;
+                }
+
+                /* 修改尾指针指向 */
+                if ( pCurNode == pList->pTail )
+                {
+                    pList->pTail = pNode;
+                }
+
+                break;
+            }
+
+            pPrevNode = pTempNode;
+            pTempNode = pTempNode->pNext;
+        } /* while ( pTempNode != pNode->pNext ) */
+
+        if ( pTempNode == pNode->pNext ) /* 没有插入的情况 */
+        {
+            pNode = pNode->pNext;
+        }
+        else /* 已经插入的情况 */
+        {
+            /* 已经插入后不需将pNode指针后移，因为前面操作过程中已经移动过了 */
+        }
+    } /* while ( pNode->pNext != NULL ) */
+
+    return 1;
+}
+
+
+/**	将两个已经排好序的链表进行合并
+    两个链表都必须是按从小到达进行排列，即尾节点最大
+    合并后的链表也是从小到大进行排列
+
+	@param	DOUBLELIST *pListA - 要合并的链表	
+	@param	DOUBLELIST *pListB -要合并的链表	
+	@param	COMPAREFUNC CompareFunc - 节点比较函数	
+	@return	INT - 0 表示失败，失败时，参数没有变化
+                  1 表示成功，成功时pListA是合并后的结果，
+                  pListB会被释放掉
+*/
+INT DoubleList_Merge(DOUBLELIST *pListA, 
+                     DOUBLELIST *pListB, 
+                     COMPAREFUNC CompareFunc)
+{
+    DOUBLENODE	*pNodeA; /* 用来指向链表pListA的节点的临时指针 */
+    DOUBLENODE  *pNodeB; /* 用来指向链表pListB的节点的临时指针 */
+    DOUBLENODE  *pPrevA; /* pNodeA的前一节点指针 */
+
+    pNodeA = pListA->pHead;
+    pNodeB = pListB->pHead;
+    pPrevA = NULL;
+
+    while ( pNodeB != NULL )
+    {
+        while ( pNodeA != NULL )
+		{
+            if ( (*CompareFunc)( pNodeA->pData, pNodeB->pData ) >= 0 )
+			{
+                DOUBLENODE *pNode;
+				
+				/* 将pNodeB弹出来保存到pNode中 */
+                pNode = pNodeB;
+                pNodeB = pNodeB->pNext;
+				
+				/* 将pNode插入到pNodeA前面 */
+                if ( pPrevA == NULL )
+                {
+                    /* 插入在头指针前的情况，需要修改头指针 */
+                    pListA->pHead = pNode;
+                    pNode->pNext = pNodeA;
+                    pNodeA->pPrev = pNode;
+                }
+                else
+                {
+                    pPrevA->pNext = pNode;
+                    pNode->pPrev = pPrevA;
+                    pNode->pNext = pNodeA;
+                    pNodeA->pPrev = pNode;
+                }
+                pPrevA = pNode;
+			
+				break;
+			}
+            pPrevA = pNodeA;
+			pNodeA = pNodeA->pNext;
+		}
+
+		/*
+         * 如果pListB的所有数据都大于链表A的数据，
+         * 将pListB插入到pListA尾部.
+         */
+        if ( pNodeA == NULL )
+		{
+			pListA->pTail->pNext = pNodeB;
+            pNodeB->pPrev = pListA->pTail;
+
+			pListA->pTail = pListB->pTail;
+			
+			break;
+		}				
+    }
+	
+    /* 修改pListA的节点总数量 */
+    pListA->uCount += pListB->uCount;
+
+	free( pListB );
+
+	return 1;
+}
+
+/**	将一个双向链表劈成两个双向链表
+    只是从原来链表中间断开，劈完后原链表变成劈开后的第一条链表
+
+	@param	DOUBLELIST *pList - 要被劈开的双向链表	
+	@param	UINT nCount - 劈开后的第一个链表的节点个数, 必须小于原链表节点个数	
+	@return	DOUBLELIST * - 成功时返回劈开后的第二条链表，失败返回NULL。	
+*/
+DOUBLELIST * DoubleList_Split(DOUBLELIST *pList, UINT uCount)
+{
+    DOUBLENODE	*pNode;       /* 用来保存劈开处的节点的指针 */
+	DOUBLELIST  *pSecondList; /* 用来记录劈开后的第二条链表的指针 */
+	UINT    	uIndex;       /* 临时循环体变量 */
+
+	
+    /* 创建一条空链表 */
+    pSecondList = DoubleList_Create();
+    if ( pSecondList == NULL )
+    {
+        return NULL;
+    }
+    /* 参数校验 */
+    if ( uCount == 0 || pList->uCount <= uCount)
+    {
+        return NULL;
+    }
+
+	/* 获取要劈开的位置 */
+    pNode = pList->pHead;
+    for ( uIndex = 1; uIndex < uCount; uIndex++ )
+    {
+        pNode = pNode->pNext;
+    }
+	
+	/* 填充第二条链表的内容. */
+    pSecondList->pHead = pNode->pNext;
+    pSecondList->pTail = pList->pTail;
+
+    pSecondList->uCount = pList->uCount - uCount;
+
+	/* 修改第一条链表的内容. */
+    pList->pTail = pNode;
+    pList->uCount = uCount;
+
+	/* 将第一条链表尾节点的pNext指针指向NULL */
+    pList->pTail->pNext = NULL;
+
+    /* 将第二条链表的头节点的前一节点指针赋成空 */
+    pSecondList->pHead->pPrev = NULL;
+    return pSecondList;
+}
+
+
+/**	对链表使用归并插入排序，归并和插入排序结合使用，先使用归并排序，
+   当链表里面元素数量个数小于一定值时便使用插入排序。
+    
+	@param	DOUBLELIST *pList - 要排序的链表指针	
+	@param	COMPAREFUNC CompareFunc - 链表节点比较函数	
+	@param	UINT uInsertSortCount - 使用插入排序时的链表节点个数，当链表节点
+                                    个数小于这个值时会使用插入排序算法
+                                    
+	@return	INT - CAPI_FAILED表示失败，CAPI_SUCCESS表示成功。	
+*/
+INT DoubleList_MergeSort(DOUBLELIST *pList, 
+                         COMPAREFUNC CompareFunc, 
+                         UINT uInsertSortCount)
+{
+   	DOUBLELIST	 *pSecondList;
+
+    /* 参数校验 */
+    if ( pList == NULL || CompareFunc == NULL )
+    {
+        return CAPI_FAILED;
+    }
+    
+    if ( pList->uCount < 2 )
+    {
+        /* 如果节点个数少于两个，认为是已经排好序的 */
+        return CAPI_SUCCESS;
+    }
+
+    /*
+     * 如果链表节点个数小于给定的做插入排序的个数，直接使用插入排序。 
+	 */
+    if ( pList->uCount <= uInsertSortCount )
+	{
+		(void)DoubleList_InsertSort( pList, CompareFunc );
+	}
+    else
+	{
+		/* 将链表劈成两半 */
+        pSecondList = DoubleList_Split(pList, (pList->uCount) / 2 );
+		
+        /* 对劈完后的第一个链表进行递归调用归并排序 */
+        (void)DoubleList_MergeSort( pList, CompareFunc, uInsertSortCount );
+		
+        /* 对劈完后的第二个链表进行递归调用归并排序 */
+		(void)DoubleList_MergeSort( pSecondList, CompareFunc, uInsertSortCount );
+
+		/* 将排好序的两个链表合成一个. */
+		(void)DoubleList_Merge( pList, pSecondList, CompareFunc );
+	}
+
+    return CAPI_SUCCESS; 
+}
+
+
+/**	双向链表的遍历函数
+
+	@param	DOUBLELIST *pList - 要操作双向链表指针	
+	@param	TRAVERSEFUNC TraverseFunc - 节点数据的遍历操作函数	
+	@return	INT - 成功返回1，失败返回0	
+*/
+void DoubleList_Traverse( DOUBLELIST *pList, TRAVERSEFUNC TraverseFunc )
+{
+    DOUBLENODE  *pNode;
+
+    pNode = pList->pHead;
+    
+    /* 开始遍历链表 */
+    while ( pNode != NULL )
+    {
+        (*TraverseFunc)( pNode->pData ); /* 调用遍历回调函数处理数据 */
+        pNode = pNode->pNext;
+    }
+
+    return;
+}
+
+
+/**	对链表的数据的第uKeyIndex位上的元素进行分类，
+    依照它们的大小放入对应的箱子中
+
+	@param	DOUBLELIST *pList - 双向链表指针	
+	@param	UINT       uRadix - 基数排序的基数，与具体数据类型有关，
+                                一般来讲整数的基数为16，字符串的基数最大为255。
+	@param	UINT       uKeyIndex - 第多少位	
+	@param	DOUBLENODE **ppHead - 用来记录头指针的箱子	
+	@param	DOUBLENODE **ppTail - 记录箱子的尾指针	
+	@param	GETKEYFUNC GetKeyFunc - 获取数据的第uKeyIndex位上的元素值	
+	@return	void - 无。	
+*/
+void DoubleList_Distribute(DOUBLELIST *pList,
+                          UINT       uRadix,
+                          UINT       uKeyIndex,
+                          DOUBLENODE **ppHead,
+                          DOUBLENODE **ppTail,
+                          GETKEYFUNC GetKeyFunc )
+{
+    DOUBLENODE   *pNode;
+    UINT         i;
+    
+    /* 初始化子表 */
+    for ( i = 0; i < uRadix; i++ )
+    {
+        ppHead[i] = NULL;
+        ppTail[i] = NULL;
+    }
+    
+    pNode = pList->pHead;
+    
+    while ( pNode != NULL )
+    {
+        UINT uRadixIndex = (*GetKeyFunc)(pNode->pData, uKeyIndex);
+        
+        if ( ppHead[uRadixIndex] == NULL )
+        {
+            ppHead[uRadixIndex] = pNode;
+            ppTail[uRadixIndex] = pNode;
+            pNode = pNode->pNext;
+            ppTail[uRadixIndex]->pNext = NULL;
+            ppTail[uRadixIndex]->pPrev = NULL;
+        }
+        else
+        {
+            ppTail[uRadixIndex]->pNext = pNode;
+            pNode->pPrev = ppTail[uRadixIndex];
+            ppTail[uRadixIndex] = pNode;
+            pNode = pNode->pNext;
+            ppTail[uRadixIndex]->pNext = NULL;
+        }
+    }   
+}
+
+/**	对基数排序中分好类的箱子进行收集操作，将箱子重新连成一条链表
+
+	@param	DOUBLELIST *pList - 双向链表指针	
+	@param	UINT        uRadix - 基数	
+	@param	DOUBLENODE **ppHead - 用来记录头指针的箱子	
+	@param	DOUBLENODE **ppTail - 记录箱子的尾指针	
+	@return	void - 无
+*/
+void DoubleList_Collect(DOUBLELIST *pList,
+                       UINT        uRadix,
+                       DOUBLENODE **ppHead,
+                       DOUBLENODE **ppTail )
+{
+    DOUBLENODE  *pHead;
+    DOUBLENODE  *pTail;
+    UINT        uRadixIndex;
+
+    /* 查早第1个非空子表 */
+    uRadixIndex = 0;
+    while ( uRadixIndex < uRadix )
+    {
+        if ( ppHead[uRadixIndex] == NULL )
+        {
+            uRadixIndex++;
+            continue;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if ( uRadixIndex == uRadix )
+    {
+        /* 没有找到非空子表 */
+        return;
+    }
+
+    pHead = ppHead[uRadixIndex];
+    pTail = ppTail[uRadixIndex];
+
+    while ( uRadixIndex < uRadix - 1 )
+    {
+        /* 继续查找下一个非空子表 */
+        ++uRadixIndex;
+        if ( ppHead[uRadixIndex] == NULL )
+        {
+            continue;
+        }
+
+        if ( uRadixIndex < uRadix )
+        {
+            /* 找到了非空子表，需要把它和前一个非空子表链接起来 */
+            pTail->pNext = ppHead[uRadixIndex];
+            pTail->pNext->pPrev = pTail;
+            pTail = ppTail[uRadixIndex];
+        }
+    }
+
+    pList->pHead = pHead;
+    pList->pTail = pTail;
+
+    return ;
+}
+
+
+/**	双向链表的基数排序算法排序函数
+
+	@param	DOUBLELIST *pList - 要排序的双向链表指针	
+	@param	UINT uRadix - 基数，字符串如果以单字节为基的话基数为256	
+                                整数以10进制计算基数的话，基数为10
+	@param	UINT uMaxKeyLen - 关键词的长度，字符串以字节为单位则长度为字符串
+                              本身最大可能长度，如果32位整数以16进制为单位的
+                              话，则最大长度为8
+	@param	GETKEYFUNC GetKeyFunc - 关键词获取回调函数	
+	@return	INT - CAPI_FAILED表示失败，CAPI_SUCCESS表示成功。	
+*/
+INT DoubleList_RadixSort( DOUBLELIST *pList,
+                         UINT uRadix,
+                         UINT uMaxKeyLen,
+                         GETKEYFUNC GetKeyFunc )
+{
+    DOUBLENODE  **ppHead;  /* 用来记录各个箱子头节点的双指针 */
+    DOUBLENODE  **ppTail;  /* 用来记录各个箱子尾节点的双指针 */
+    UINT        i;         /* 临时循环变量 */
+    
+    /* 给箱子申请内存 */
+    ppHead = (DOUBLENODE **)malloc( uRadix * sizeof(DOUBLENODE *) );
+    ppTail = (DOUBLENODE **)malloc( uRadix * sizeof(DOUBLENODE *) );
+    if ( ppHead == NULL || ppTail == NULL )
+    {
+        return CAPI_FAILED;
+    }
+    
+    /* 按顺序对关键字的第i位进行分配和收集操作 */
+    for ( i = 0; i < uMaxKeyLen; i++ )
+    {
+        DoubleList_Distribute(pList, uRadix, i, ppHead, ppTail, GetKeyFunc);
+        
+        DoubleList_Collect(pList, uRadix, ppHead, ppTail);
+    }
+    
+    /* 释放分配的箱子 */
+    free( ppHead );
+    free( ppTail );
+    
+    return CAPI_SUCCESS;
+}
