@@ -1,0 +1,430 @@
+/*
+ * Copyright (c) 2000-2008
+ * Author: Weiming Zhou
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.  
+ */
+
+#include <stdlib.h>
+#include "CapiGlobal.h"
+#include "SortTable.h"
+#include "Stack.h"
+
+void SortTable_QuickSort2(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc);
+
+void SortTable_QuickSort(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc);
+
+void SortTable_QuickSort3(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc);
+
+/**	排序表的创建函数
+
+	@param	UINT uMaxCount - 排序表的最大尺寸	
+	@return	SORTTABLE * - 成功返回排序表指针，失败返回NULL	
+*/
+SORTTABLE *	SortTable_Create(UINT uMaxCount)
+{
+    SORTTABLE *pTable;
+
+    if ( uMaxCount == 0 )
+    {
+        return NULL;
+    }
+
+    pTable = (SORTTABLE *)malloc(sizeof(struct SORTTABLE_st));
+    if ( pTable != NULL )
+    {
+        pTable->ppData = (void **)malloc(uMaxCount * sizeof(void *));
+        if ( pTable->ppData != NULL )
+        {
+            pTable->ppData[0] = NULL;
+            pTable->uMaxCount = uMaxCount;
+            pTable->uCursorCount = 0;
+        }
+        else
+        {
+            free( pTable );
+            pTable = NULL;
+        }
+    }
+    return pTable;
+}
+
+/**	排序表的释放函数
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	DESTROYFUNC DestroyFunc - 数据释放函数	
+	@return	void - 无	
+*/
+void SortTable_Destroy( SORTTABLE *pTable, DESTROYFUNC DestroyFunc )
+{
+    if ( pTable != NULL )
+    {
+        if ( DestroyFunc != NULL )
+        {
+            UINT i;
+            for ( i = 0; i < pTable->uCursorCount; i++ )
+            {
+                (*DestroyFunc)( pTable->ppData[i] );
+            }
+        }
+        free( pTable->ppData );
+        free( pTable );
+    }
+}
+
+/**	排序表的添加数据函数，数据被添加到表尾部
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	void *pData - 加入的数据指针	
+	@return	INT (by default) - 成功返回CAPI_SUCCESS, 失败返回CAPI_FAILED	
+*/
+INT	SortTable_Add( SORTTABLE *pTable, void *pData )
+{
+    if ( pTable == NULL || pData == NULL 
+        || pTable->uCursorCount >= pTable->uMaxCount )
+    {
+        return CAPI_FAILED;
+    }
+    pTable->ppData[pTable->uCursorCount] = pData;
+    pTable->uCursorCount += 1;
+    
+    return CAPI_SUCCESS;
+}
+
+/**	排序表的二分查找函数，调用此函数前必须对表从小到大排好序
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	void *pData - 要查找的匹配数据
+	@param	COMPAREFUNC CompareFunc - 比较函数
+	@return	void * - 成功返回查到的数据，失败返回NULL
+*/
+void * SortTable_FindData(SORTTABLE *pTable, void *pData, 
+                               COMPAREFUNC CompareFunc)
+{
+    UINT uLow;
+    UINT uHigh;
+    UINT uMid;
+
+    if ( pTable == NULL || CompareFunc == NULL || pData == NULL 
+        || pTable->uCursorCount == 0 )
+    {
+        return NULL;
+    }
+
+    uLow = 0;
+    uHigh = pTable->uCursorCount - 1;
+    uMid = 0;
+    while ( uLow <= uHigh )
+    {
+        INT nResult;
+        uMid = ( uLow + uHigh ) / 2;
+        nResult = (*CompareFunc)( pTable->ppData[uMid], pData );
+        if ( nResult > 0 )
+        {
+            uHigh = uMid - 1;
+        }
+        else if ( nResult < 0 )
+        {
+            uLow = uMid + 1;
+        }
+        else
+        {
+            /* 已经发现了匹配数据，返回 */
+            return pTable->ppData[uMid];
+        }
+    }
+
+    /* 未找到匹配数据，返回空指针 */
+    return NULL;
+}
+
+/**	排序表的二分查找函数，调用此函数前必须对表从小到大排好序
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	void *pData - 要查找的匹配数据
+	@param	COMPAREFUNC CompareFunc - 比较函数
+	@return	void * - 成功返回查到的精确数据或刚好比要查找的数据大的数据,
+                        失败返回NULL。
+*/
+void * SortTable_BlurFind(SORTTABLE *pTable, void *pData, 
+                               COMPAREFUNC CompareFunc)
+{
+    UINT uLow;
+    UINT uHigh;
+    UINT uMid;
+
+    if ( pTable == NULL || CompareFunc == NULL || pData == NULL 
+        || pTable->uCursorCount == 0 )
+    {
+        return NULL;
+    }
+
+    uLow = 0;
+    uHigh = pTable->uCursorCount - 1;
+    uMid = 0;
+    while ( uLow <= uHigh )
+    {
+        INT nResult;
+        uMid = ( uLow + uHigh ) / 2;
+        nResult = (*CompareFunc)( pTable->ppData[uMid], pData );
+        if ( nResult > 0 )
+        {
+            uHigh = uMid - 1;
+        }
+        else if ( nResult < 0 )
+        {
+            uLow = uMid + 1;
+        }
+        else
+        {
+            /* 已经发现了匹配数据，返回 */
+            return pTable->ppData[uMid];
+        }
+    }
+
+    /* 未找到匹配数据，返回刚好比它大的数据 */
+    return pTable->ppData[uHigh];
+}
+
+/**	排序表的按数组下标索引取数据函数
+
+	@param	SORTTABLE *pTable -排序表指针	
+	@param	int uId - 数组下标索引	
+	@return	void * - 成功返回数据指针，如果数组索引超出排序表当前数据
+                     的范围则返回NULL
+*/
+void * SortTable_GetByID( SORTTABLE *pTable, UINT uId )
+{
+    void    *pData = NULL;
+
+    if ( pTable != NULL )
+    {
+        if ( uId < pTable->uCursorCount )
+        {
+            pData = pTable->ppData[uId];
+        }
+    }
+    return pData;
+}
+
+/**	排序表的排序函数
+
+	@param	SORTTABLE *pTable -排序表指针	
+	@param	COMPAREFUNC CompareFunc -数据比较函数	
+	@return	INT -xxxx	
+*/
+INT SortTable_Sort(SORTTABLE *pTable, COMPAREFUNC CompareFunc)
+{
+    SortTable_QuickSort(pTable, 0, 
+        pTable->uCursorCount - 1, CompareFunc);
+    return CAPI_SUCCESS;
+}
+
+/**	排序表的快速排序劈开函数，将给定范围数据按指定数据劈成两部分，
+    一部分全部小于指定数据，另一部分全部大于指定数据
+    指定数据取给定范围排序表中的第一个数据
+
+	@param	SORTTABLE *pTable -排序表指针	
+	@param	UINT uStart - 表中开始位置	
+	@param	UINT uEnd - 表中结束位置	
+	@param	COMPAREFUNC CompareFunc - 数据比较函数	
+	@return	UINT - 指定数据在表中的位置，即它的数组下标	
+*/
+static UINT SortTable_Split(SORTTABLE *pTable, UINT uStart, UINT uEnd,
+                     COMPAREFUNC CompareFunc)
+{
+    void *pSelData;
+    UINT uLow;
+    UINT uHigh;
+
+    uLow = uStart;
+    uHigh = uEnd;
+
+    pSelData = pTable->ppData[uLow];
+    while ( uLow < uHigh )
+    {
+        while ( (*CompareFunc)(pTable->ppData[uHigh], pSelData) > 0 
+            && uLow != uHigh )
+        {
+            --uHigh;
+        }
+        if ( uHigh != uLow )
+        {
+            pTable->ppData[uLow] = pTable->ppData[uHigh];
+            ++uLow;
+        }
+
+        while ( (*CompareFunc)( pTable->ppData[uLow], pSelData ) < 0
+            && uLow != uHigh )
+        {
+             ++uLow;
+        }
+        if ( uLow != uHigh )
+        {
+            pTable->ppData[uHigh] = pTable->ppData[uLow];
+            --uHigh;
+        }
+    }
+    pTable->ppData[uLow] = pSelData;
+
+    return uLow;
+}
+
+/**	快速排序算法的使用栈的非递归算法函数
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	UINT uStart - 表中的要排序数据区间的起点，为数组下标	
+	@param	UINT uEnd - 表中要排序数据区间的终点，为数组下标	
+	@param	COMPAREFUNC CompareFunc - 数据比较函数	
+	@return	void - 无 	
+*/
+void SortTable_QuickSort2(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc)
+{
+    STACK   *pStack;
+    UINT    uLow;
+    UINT    uHigh;
+    UINT    uMid;
+
+    uLow = uStart;
+    uHigh = uEnd;
+
+    pStack = Stack_Create(uHigh - uEnd);
+
+    (void)Stack_Push(pStack, (void *)uLow);
+    (void)Stack_Push(pStack, (void *)uHigh);
+
+    while ( !Stack_IsEmpty(pStack) )
+    {
+        uHigh = (UINT)Stack_Pop(pStack);
+        uLow = (UINT)Stack_Pop(pStack);
+        if ( uLow < uHigh )
+        {
+            uMid = SortTable_Split(pTable, uLow, uHigh, CompareFunc );
+            if ( uMid > uLow )
+            {
+                (void)Stack_Push(pStack, (void *)uLow );
+                (void)Stack_Push(pStack, (void *)(uMid - 1 ));
+            }
+            if ( uHigh > uMid )
+            {
+                (void)Stack_Push(pStack, (void *)(uMid + 1) );
+                (void)Stack_Push(pStack, (void *)uHigh);
+            }
+        }
+    }
+    Stack_Destroy(pStack, NULL);
+}
+
+/**	排序表的快速排序函数，不使用栈调用的非递归算法
+    将指定区间的数据用快速排序算法排好
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	UINT uStart - 要排序的区间起点	
+	@param	UINT uEnd - 要排序的区间终点		
+	@param	COMPAREFUNC CompareFunc - 数据比较函数	
+	@return	void - 无	
+*/
+void SortTable_QuickSort(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc)
+{
+    UINT   *puStack;
+    UINT    uStackTop;
+    UINT    uLow;
+    UINT    uHigh;
+    UINT    uMid;
+
+    if ( uEnd - uStart < 1 )
+    {
+        return;
+    }
+
+    uLow = uStart;
+    uHigh = uEnd;
+
+    puStack = (UINT *)malloc((uHigh - uLow + 1) * sizeof(UINT));
+    if ( puStack == NULL )
+    {
+        return;
+    }
+    uStackTop = 0;
+
+    puStack[uStackTop] = uLow;
+    ++uStackTop;
+    puStack[uStackTop] = uHigh;
+    ++uStackTop;
+
+    while ( uStackTop != 0 )
+    {
+        --uStackTop;
+        uHigh = puStack[uStackTop];
+
+        --uStackTop;
+        uLow = puStack[uStackTop];
+        
+        if ( uLow < uHigh )
+        {
+            uMid = SortTable_Split(pTable, uLow, uHigh, CompareFunc );
+            if ( uMid - uLow > uHigh - uMid )
+            {
+                puStack[uStackTop] = uLow;
+                ++uStackTop;
+                puStack[uStackTop] = uMid - 1;
+                ++uStackTop;
+                if ( uHigh > uMid )
+                {
+                    puStack[uStackTop] = uMid + 1;
+                    ++uStackTop;
+                    puStack[uStackTop] = uHigh;
+                    ++uStackTop;
+                }            
+            }
+            else
+            {
+                puStack[uStackTop] = uMid + 1;
+                ++uStackTop;
+                puStack[uStackTop] = uHigh;
+                ++uStackTop;
+                if ( uMid > uLow )
+                {
+                    puStack[uStackTop] = uLow;
+                    ++uStackTop;
+                    puStack[uStackTop] = uMid - 1;
+                    ++uStackTop;
+                }
+            }
+
+        }
+    }
+    free( puStack );
+}
+
+/**	排序表的快速排序函数，将指定区间的数据用快速排序算法排好
+
+	@param	SORTTABLE *pTable - 排序表指针	
+	@param	UINT uStart - 要排序的区间起点	
+	@param	UINT uEnd - 要排序的区间终点		
+	@param	COMPAREFUNC CompareFunc - 数据比较函数	
+	@return	void - 无	
+*/
+void SortTable_QuickSort3(SORTTABLE *pTable, UINT uStart, UINT uEnd, 
+                        COMPAREFUNC CompareFunc)
+{
+    UINT uMid = SortTable_Split(pTable, uStart, uEnd, CompareFunc );
+    if ( uMid > uStart )
+    {
+        SortTable_QuickSort3(pTable, uStart, uMid - 1, CompareFunc);
+    }
+
+    if ( uEnd > uMid )
+    {
+        SortTable_QuickSort3(pTable, uMid + 1, uEnd, CompareFunc);
+    }
+}
