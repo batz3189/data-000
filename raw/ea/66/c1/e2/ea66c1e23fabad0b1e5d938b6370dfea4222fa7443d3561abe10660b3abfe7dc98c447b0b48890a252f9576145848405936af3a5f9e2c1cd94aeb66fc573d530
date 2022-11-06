@@ -1,0 +1,499 @@
+# Microsoft Developer Studio Project File - Name="CAPI" - Package Owner=<4>
+# Microsoft Developer Studio Generated Build File, Format Version 6.00
+# ** DO NOT EDIT **
+
+# TARGTYPE "Win32 (x86) Static Library" 0x0104
+
+CFG=CAPI - Win32 Debug
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
+!MESSAGE 
+!MESSAGE NMAKE /f "CAPI.mak".
+!MESSAGE 
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE 
+!MESSAGE NMAKE /f "CAPI.mak" CFG="CAPI - Win32 Debug"
+!MESSAGE 
+!MESSAGE Possible choices for configuration are:
+!MESSAGE 
+!MESSAGE "CAPI - Win32 Release" (based on "Win32 (x86) Static Library")
+!MESSAGE "CAPI - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE 
+
+# Begin Project
+# PROP AllowPerConfigDependencies 0
+# PROP Scc_ProjName ""
+# PROP Scc_LocalPath ""
+CPP=cl.exe
+RSC=rc.exe
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Release"
+# PROP BASE Intermediate_Dir "Release"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "Release"
+# PROP Intermediate_Dir "Release"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Od /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD BASE RSC /l 0x804 /d "NDEBUG"
+# ADD RSC /l 0x804 /d "NDEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo
+# ADD LIB32 /nologo
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Debug"
+# PROP BASE Intermediate_Dir "Debug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "Debug"
+# PROP Intermediate_Dir "Debug"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /MTd /W3 /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD BASE RSC /l 0x804 /d "_DEBUG"
+# ADD RSC /l 0x804 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo
+# ADD LIB32 /nologo
+
+!ENDIF 
+
+# Begin Target
+
+# Name "CAPI - Win32 Release"
+# Name "CAPI - Win32 Debug"
+# Begin Group "Source Files"
+
+# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=.\ApiHook.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\AVLTree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\BinTree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\BlockList.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cache.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DeQueue.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# SUBTRACT CPP /YX
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DoS.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\DoubleList.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DSpaceList.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Emalloc.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\GCPtr.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Graph.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashAVLTree.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashList.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashRBTree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashTable.C
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\MsgQueue.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\MStack.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTask.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTList.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Queue.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\RBTree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ReadWriteLock.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\ShortMsg.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SingleList.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\SortTable.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpList.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Stack.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Tree.c
+
+!IF  "$(CFG)" == "CAPI - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CAPI - Win32 Debug"
+
+# ADD CPP /Od
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Xcopy.c
+# End Source File
+# End Group
+# Begin Group "Header Files"
+
+# PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\ApiHook.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\AVLTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BinTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BlockList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cache.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\CapiGlobal.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DeQueue.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DoubleList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DSpaceList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Emalloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\GCPtr.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Graph.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashAVLTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashRBTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HashTable.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MsgQueue.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MStack.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTask.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Queue.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\RBTree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SingleList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SortTable.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpList.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\STACK.H
+# End Source File
+# Begin Source File
+
+SOURCE=.\Tree.h
+# End Source File
+# End Group
+# End Target
+# End Project
