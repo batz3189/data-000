@@ -1,0 +1,70 @@
+#
+#######################################################
+set hdlin_translate_off_skip_text "true"
+set verilogout_no_tri             "true"
+set default_schematic_options     "-size infinite"
+set write_name_nets_same_as_ports "true"
+#######################################################
+#
+# dc_shell TcL startup script:
+#
+set designer "veriloguserN"
+set company  "SVTI"
+#
+# Some design environment variables:
+#
+set search_path ". [getenv SYNOPSYS]/../TSMCLibes/tcbn90ghpSYN"
+#
+# tc = Typical; bc = Best; wc = Worst:
+set target_library tcbn90ghptc.db
+set link_library   tcbn90ghptc.db
+#
+set symbol_library tcbn90ghp.sdb
+#
+# ---------------------------------
+#
+define_design_lib Intro_Top -path ./Intro_TopSynth
+#
+analyze   -work Intro_Top -format verilog AndOr.v
+analyze   -work Intro_Top -format verilog SR.v
+analyze   -work Intro_Top -format verilog XorNor.v
+analyze   -work Intro_Top -format verilog Intro_Top.v
+elaborate -work Intro_Top Intro_Top
+#
+# ---------------------------------
+#
+set_operating_conditions NCCOM
+set_wire_load_model -name "TSMC8K_Lowk_Conservative"  [all_designs]
+#
+# For XG mode portability to back-end tools:
+set_fix_multiple_port_nets -all
+#
+set verilogout_higher_designs_first "true"
+#
+# These values will make the gate count smaller:
+#
+set_drive       5.0   [all_inputs]
+set_load        2.0   [all_outputs]
+set_max_fanout  10     [all_inputs]
+#
+# module-specific constraints:
+#
+set_max_area  0
+set_max_delay 10 -to [all_outputs]
+#
+compile
+#
+write -hierarchy -format verilog -output Intro_TopNetlist.v
+#
+write_sdf Intro_TopNetlist.sdf
+#
+report_area > /dev/null
+report_area
+report_area    > Intro_TopNetlist.log
+report_timing
+report_timing >> Intro_TopNetlist.log
+check_design
+check_design  >> Intro_TopNetlist.log
+#
+# Drop into interactive mode:
+#
