@@ -1,0 +1,240 @@
+/*
+ * Copyright (c) 2000-2008
+ * Author: Weiming Zhou
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.  
+ */
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+#include "CapiGlobal.h"
+#include "DoubleList.h"
+#include "MTask.h"
+#include "MTList.h"
+#include "MsgQueue.h"
+
+#define DEFAULT_MSGQUEUE_LEN    65535
+
+/**	消息队列的创建函数
+
+	@param	INT nMaxLen - 消息队列的最大长度	
+	@return	MSGQUEUE * - 返回创建的消息队列指针，失败返回NULL	
+*/
+MSGQUEUE * MsgQueue_Create(INT nMaxLen)
+{
+    MSGQUEUE    *pQueue;
+
+    pQueue = (MSGQUEUE *)malloc(sizeof(MSGQUEUE));
+    if ( pQueue != NULL )
+    {
+        pQueue->pSem = SemaCreate(0, nMaxLen);
+        if ( pQueue->pSem != NULL )
+        {
+            pQueue->nMaxLen = nMaxLen;
+            pQueue->pList = MTList_Create();
+            if ( pQueue->pList == NULL )
+            {
+                SemaClose(pQueue->pSem);
+                free(pQueue);
+                pQueue = NULL;
+            }
+        }
+        else
+        {
+            free(pQueue);
+            pQueue = NULL;
+        }
+    }
+    return pQueue;
+}
+
+
+/**	消息队列的释放函数
+
+	@param	MSGQUEUE *pQueue - 消息队列指针	
+	@param	DESTROYFUNC DestroyFunc - 数据释放回调函数	
+	@return	void - 无	
+*/
+void MsgQueue_Destroy(MSGQUEUE *pQueue, DESTROYFUNC DestroyFunc)
+{
+    if ( pQueue != NULL )
+    {
+        INT nMaxLen;
+        if ( pQueue->nMaxLen > DEFAULT_MSGQUEUE_LEN )
+        {
+            nMaxLen = pQueue->nMaxLen;
+        }
+        else
+        {
+            nMaxLen = DEFAULT_MSGQUEUE_LEN;
+        }
+        SemaRelease(pQueue->pSem, nMaxLen ); /* 让所有阻塞的接收操作可以继续*/
+        MTList_Destroy(pQueue->pList, DestroyFunc);
+        SemaClose(pQueue->pSem);
+        free(pQueue);
+    }
+}
+
+
+/**	消息队列的发送函数，将数据发送到消息队列中
+
+	@param	MSGQUEUE *pQueue - 消息队列指针	
+	@param	void *pData - 要发送到消息队列里的数据指针	
+	@return	INT - 同MTList_InsertTail()函数	
+*/
+INT MsgQueue_Send(MSGQUEUE *pQueue, void *pData)
+{
+    INT     nRet;
+
+    nRet = MTList_InsertTail(pQueue->pList, pData);
+    SemaRelease(pQueue->pSem, 1); /* 将计数加1 */
+
+    return nRet;
+}
+
+
+/**	消息队列的接收数据函数，从消息队列中接收数据出来
+
+	@param	MSGQUEUE *pQueue - 消息队列指针	
+	@return	void * - 返回从消息队列中接收到的数据	
+*/
+void * MsgQueue_Recv(MSGQUEUE *pQueue)
+{
+    SemaWait(pQueue->pSem); /* 将计数减1，计数为0则会阻塞住 */
+    return MTList_PopHead(pQueue->pList);
+}
+
+/**	消息队列的枚举初始化函数
+
+	@param	MSGQUEUE *pQueue - 消息队列指针	
+	@return	void - 无	
+*/
+void MsgQueue_EnumBegin(MSGQUEUE *pQueue)
+{
+    MTList_EnumBegin(pQueue->pList);
+}
+
+/**	消息队列的枚举下一个数据函数
+
+	@param	MSGQUEUE *pQueue - 消息队列指针	
+	@param	VISITFUNC VisitFunc - 数据访问回调函数	
+	@return	INT - 同MTList_EnumNext()函数	
+*/
+INT MsgQueue_EnumNext(MSGQUEUE *pQueue, VISITFUNC VisitFunc)
+{
+    return MTList_EnumNext(pQueue->pList, VisitFunc);
+}
+
+#define MAX_QUEUE_SIZE  4096
+#define MAX_LISTEN_SIZE 16
+#define MAX_THREADS     10
+#define DEFAULT_PORT    8080
+#if  0
+MSGQUEUE    *g_pQue;
+
+void ProcessRequest(void *args);
+
+/**	初始化函数，初始化时会先创建消息队列，并预创建MAX_THREADS个线程
+
+	@return	INT - CAPI_FAILED表示失败，CAPI_SUCCESS表示成功	
+*/
+INT Init()
+{
+    INT i;
+
+    g_pQue = MsgQueue_Create(MAX_QUEUE_SIZE);
+    if ( g_pQue == NULL )
+    {
+        return CAPI_FAILED;
+    }
+    for ( i = 0; i < MAX_THREADS; i++ )
+    {
+        _beginthread(ProcessRequest, 0, NULL);
+    }
+
+    return CAPI_SUCCESS;
+}
+
+/**	接收请求的处理函数
+        实现将接收到的请求的SOCKET标识符放入到消息队列中
+
+        @return	INT - CAPI_FAILED表示失败，CAPI_SUCCESS表示成功	
+*/
+INT RecvQuest()
+{
+    struct	sockaddr_in local, from;
+    SOCKET	s, msgsock;
+    int		fromlen;
+
+    s = socket(AF_INET, SOCK_STREAM, 0);
+    if (s ==  INVALID_SOCKET)
+    {
+        return CAPI_FAILED;
+    }
+    local.sin_family = AF_INET;
+    local.sin_addr.s_addr = INADDR_ANY;
+    local.sin_port = htons(DEFAULT_PORT);
+    
+    if ( bind(s, (struct sockaddr*)&local, sizeof(local)) == SOCKET_ERROR) 
+    {
+        return CAPI_FAILED;
+    }
+    if ( listen(s, MAX_LISTEN_SIZE ) == SOCKET_ERROR)
+    {
+        return CAPI_FAILED;
+    }
+
+    while( msgsock = accept(s, (struct sockaddr*)&from, &fromlen) 
+        != INVALID_SOCKET )
+    {
+        SOCKET *pNewSock = new SOCKET;
+        *pNewSock = msgsock;
+        MsgQueue_Send(g_pQue, (void *)pNewSock);
+    }
+    return CAPI_SUCCESS;
+}
+
+/**	处理请求的任务处理函数
+        这个函数是处理任务的入口函数，在里面处理接收客户端发来的字符串“Hello!”，
+        并发送响应“OK"回客户端。
+
+	@param	void * -未使用	
+	@return	void -无	
+*/
+void ProcessRequest(void *)
+{
+    SOCKET *pSock;
+    while (pSock = MsgQueue_Recv(g_pQue))
+    {
+        int  len;
+        char buf[1024];
+        len = recv(*pSock, buf, sizeof(buf)-1, 0);
+        if ( len > 0 )
+        {
+            buf[len] = '\0';
+            if ( strcmp(buf, "Hello!")== 0 )
+            {
+                strcpy(buf, "Ok");
+                send(*pSock, buf, strlen(buf), 0);
+            }
+        }
+    }
+}
+
+
+/**	将SOCKET信息打印到屏幕的回调函数
+
+	@param	void *pData - 数据指针	
+	@return	INT - 取决于WriteToScreen()函数 	
+*/
+INT PrintAllIPToScreen(void *pData)
+{
+    SOCKET *pSock = pData;
+    return WriteToScreen(*pSock);    
+}
+#endif
