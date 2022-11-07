@@ -1,0 +1,21 @@
+int
+maximum(double *vec,int dim)
+{
+	int i;
+	double ma;
+	int inx;
+
+	inx=0;
+
+	ma=0.0;
+	for (i=0;i<dim;i++)
+	{
+		if (vec[i]>ma)
+		{
+			ma=vec[i];
+			inx=i;
+		}
+	}
+
+	return(inx);
+}
