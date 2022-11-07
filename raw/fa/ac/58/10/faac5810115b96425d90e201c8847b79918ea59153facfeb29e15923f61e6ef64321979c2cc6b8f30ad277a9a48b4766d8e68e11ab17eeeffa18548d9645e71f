@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Draft//EN">
+<HTML>
+<HEAD>
+<TITLE>电机监测系统</TITLE>
+</HEAD>
+<BODY >
+<H1>电机监测系统</H1>
+    显示发电机组振动信号<P>
+<TABLE BORDER = 1 BORDERCOLOR = #000000><TR><TD>
+<OBJECT ID="LabVIEWControl" CLASSID="CLSID:A40B0AD4-B50E-4E58-8A1D-8544233807AA" WIDTH=586 HEIGHT=492 CODEBASE="ftp://ftp.ni.com/support/labview/runtime/windows/6.1/LVRunTimeEng.exe">
+<PARAM name="LVFPPVINAME" value="web发布程序.vi">
+<EMBED SRC=".LV_FrontPanelProtocol.rpvi" LVFPPVINAME="web发布程序.vi" TYPE="application/x-labviewrpvi" WIDTH=586 HEIGHT=492  PLUGINSPAGE="http://digital.ni.com/express.nsf/express?openagent&code=ex87nm&"></EMBED>
+</OBJECT>
+</TD></TR></TABLE>
+<P>
+   谢谢
+</BODY>
+</HTML>
