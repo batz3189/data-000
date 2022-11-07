@@ -1,0 +1,109 @@
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+#define xbase 580
+#define ybase 350
+#define xstep 8	/* half distance between adjacent nodes */
+#define ystep 40
+
+
+void
+drawbp(double **w_ih,double **w_ho,int n,int h,int p)
+{
+
+	int i,j;
+	int xstart,ystart[3];
+
+	int xmax;
+	int tem;	/* color */
+
+	int *in;
+	int *hid;
+	int *out;
+
+	in=(int *)calloc(n,sizeof(int));
+	hid=(int *)calloc(h,sizeof(int));
+	out=(int *)calloc(p,sizeof(int));
+
+	xmax=getmaxx();
+
+	setcolor(WHITE);
+	/* draw input nodes  */
+	xstart=xbase-(n+1)*xstep;
+	ystart[0]=ybase;
+
+	for (i=0;i<n;i++)
+	{
+		in[i]=xstart+i*xstep*2;
+		if (in[i]>xmax)
+		{
+			fprintf(stderr,"drawing BP out of screen\n");
+			closegraph();
+			exit(1);
+		}
+		circle(in[i],ystart[0],2);
+	}
+
+	/* draw hidden node */
+	xstart=xbase-(h+1)*xstep;
+	ystart[1]=ybase-ystep;
+
+	for (i=0;i<h;i++)
+	{
+		hid[i]=xstart+i*xstep*2;
+		if (hid[i]>xmax)
+		{
+			fprintf(stderr,"drawing BP out of screen\n");
+			closegraph();
+			exit(1);
+		}
+		circle(hid[i],ystart[1],2);
+	}
+
+	/* draw output node */
+	xstart=xbase-(p+1)*xstep;
+	ystart[2]=ybase-2*ystep;
+
+	for (i=0;i<p;i++)
+	{
+		out[i]=xstart+i*xstep*2;
+		if (out[i]>xmax)
+		{
+			fprintf(stderr,"drawing BP out of screen\n");
+			closegraph();
+			exit(1);
+		}
+		circle(out[i],ystart[2],2);
+	}
+
+	/* draw connections from iuput to hidden */
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<h;j++)
+		{
+			tem=(int)((w_ih[j][i]+10.0)*15.0/20.0);
+			setcolor(tem);
+			line(in[i],ystart[0],hid[j],ystart[1]);
+		}
+	}
+
+	/* draw line from hidden node to output node */
+	for (i=0;i<h;i++)
+	{
+		for (j=0;j<p;j++)
+		{
+			tem=(int)((w_ho[j][i]+10.0)*15.0/20.0);
+			setcolor(tem);
+			line(hid[i],ystart[1],out[j],ystart[2]);
+		}
+	}
+
+
+
+
+
+	/* free memory */
+	free(in);
+	free(hid);
+	free(out);
+}
