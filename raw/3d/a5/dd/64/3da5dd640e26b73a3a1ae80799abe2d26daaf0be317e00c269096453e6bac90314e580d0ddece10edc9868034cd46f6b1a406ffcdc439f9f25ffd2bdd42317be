@@ -1,0 +1,39 @@
+
+/*    file :  unicross.c
+ *
+ *    purpose : implemnetation  of uniform crossover
+ *
+ */
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+
+void
+unicross(int *Kid1,int *Kid2,int len)
+/* int     len;      the length of the vector */
+/* int     *Kid1;    pointer to crossover partners */
+/* int     *Kid2; */
+{
+	int     i;
+	double  prob;
+
+	int     Tmp;            /* used for swapping alleles */
+
+	randomize();
+
+
+	/* crossover through exchanging information */
+
+	for (i=0; i<len;i++)
+	{
+		prob=(1.0*random(1000))/1000;
+		if (prob>0.5)
+		{
+			Tmp=Kid1[i];
+			Kid1[i]=Kid2[i];
+			Kid2[i]=Tmp;
+		}
+	}/* end for */
+} /* end uniform crossover */
+
+
