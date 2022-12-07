@@ -1,0 +1,148 @@
+REM GENRE Soundtrack
+REM DATE 2015
+REM DISCID 8E12AF1A
+REM COMMENT "ExactAudioCopy v1.1"
+PERFORMER "Thomas Newman"
+TITLE "Spectre"
+FILE "01 - Los Muertos Vivos Estan - featuring Tambuco Percussion Ensemble.wav" WAVE
+  TRACK 01 AUDIO
+    TITLE "Los Muertos Vivos Estan - featuring Tambuco Percussion Ensemble"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "02 - Vauxhall Bridge.wav" WAVE
+  TRACK 02 AUDIO
+    TITLE "Vauxhall Bridge"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "03 - The Eternal City.wav" WAVE
+  TRACK 03 AUDIO
+    TITLE "The Eternal City"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+  TRACK 04 AUDIO
+    TITLE "Donna Lucia"
+    PERFORMER "Thomas Newman"
+    INDEX 00 04:33:56
+FILE "04 - Donna Lucia.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 05 AUDIO
+    TITLE "A Place Without Mercy"
+    PERFORMER "Thomas Newman"
+    INDEX 00 02:01:65
+FILE "05 - A Place Without Mercy.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 06 AUDIO
+    TITLE "Backfire"
+    PERFORMER "Thomas Newman"
+    INDEX 00 01:03:62
+FILE "06 - Backfire.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 07 AUDIO
+    TITLE "Crows Klinik"
+    PERFORMER "Thomas Newman"
+    INDEX 00 04:53:39
+FILE "07 - Crows Klinik.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 08 AUDIO
+    TITLE "The Pale King"
+    PERFORMER "Thomas Newman"
+    INDEX 00 01:40:42
+FILE "08 - The Pale King.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 09 AUDIO
+    TITLE "Madeleine"
+    PERFORMER "Thomas Newman"
+    INDEX 00 02:54:60
+FILE "09 - Madeleine.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 10 AUDIO
+    TITLE "Kite In A Hurricane"
+    PERFORMER "Thomas Newman"
+    INDEX 00 02:56:42
+FILE "10 - Kite In A Hurricane.wav" WAVE
+    INDEX 01 00:00:00
+FILE "11 - Snow Plane.wav" WAVE
+  TRACK 11 AUDIO
+    TITLE "Snow Plane"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+  TRACK 12 AUDIO
+    TITLE "L'Americain"
+    PERFORMER "Thomas Newman"
+    INDEX 00 05:22:71
+FILE "12 - L'Americain.wav" WAVE
+    INDEX 01 00:00:00
+FILE "13 - Secret Room.wav" WAVE
+  TRACK 13 AUDIO
+    TITLE "Secret Room"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "14 - Hinx.wav" WAVE
+  TRACK 14 AUDIO
+    TITLE "Hinx"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "15 - Writing's On The Wall (Instrumental Version).wav" WAVE
+  TRACK 15 AUDIO
+    TITLE "Writing's On The Wall (Instrumental Version)"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "16 - Silver Wraith.wav" WAVE
+  TRACK 16 AUDIO
+    TITLE "Silver Wraith"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+  TRACK 17 AUDIO
+    TITLE "A Reunion"
+    PERFORMER "Thomas Newman"
+    INDEX 00 02:14:12
+FILE "17 - A Reunion.wav" WAVE
+    INDEX 01 00:00:00
+FILE "18 - Day Of The Dead (featuring Tambuco Percussion Ensemble).wav" WAVE
+  TRACK 18 AUDIO
+    TITLE "Day Of The Dead (featuring Tambuco Percussion Ensemble)"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "19 - Tempus Fugit.wav" WAVE
+  TRACK 19 AUDIO
+    TITLE "Tempus Fugit"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "20 - Safe House.wav" WAVE
+  TRACK 20 AUDIO
+    TITLE "Safe House"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "21 - Blindfold.wav" WAVE
+  TRACK 21 AUDIO
+    TITLE "Blindfold"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+FILE "22 - Careless.wav" WAVE
+  TRACK 22 AUDIO
+    TITLE "Careless"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+  TRACK 23 AUDIO
+    TITLE "Detonation"
+    PERFORMER "Thomas Newman"
+    INDEX 00 04:38:26
+FILE "23 - Detonation.wav" WAVE
+    INDEX 01 00:00:00
+FILE "24 - Westminster Bridge.wav" WAVE
+  TRACK 24 AUDIO
+    TITLE "Westminster Bridge"
+    PERFORMER "Thomas Newman"
+    INDEX 01 00:00:00
+  TRACK 25 AUDIO
+    TITLE "Out Of Bullets"
+    PERFORMER "Thomas Newman"
+    INDEX 00 04:12:39
+FILE "25 - Out Of Bullets.wav" WAVE
+    INDEX 01 00:00:00
+  TRACK 26 AUDIO
+    TITLE "Spectre (End Titles)"
+    PERFORMER "Thomas Newman"
+    INDEX 00 01:49:47
+FILE "26 - Spectre (End Titles).wav" WAVE
+    INDEX 01 00:00:00
